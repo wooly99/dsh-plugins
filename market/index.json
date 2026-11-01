@@ -57,7 +57,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins",
-            "commit": "0000000000000000000000000000000000000000",
+            "commit": "50203f25cf86b2c809bb4ac9e91d31eec6256a73",
             "path": "rightbar-middle-close"
           },
           "engines": {
@@ -95,7 +95,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins",
-            "commit": "0000000000000000000000000000000000000000",
+            "commit": "50203f25cf86b2c809bb4ac9e91d31eec6256a73",
             "path": "session-delete"
           },
           "engines": {
