@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Delete Session",
+    "description": "Adds a Delete conversation action to the Session menu and permanently removes the Session log from disk."
+  }
+}

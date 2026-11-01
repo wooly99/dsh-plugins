@@ -1,0 +1,3 @@
+- insert:
+    - id: rightbar-middle-close
+      name: '@local/dsh-rightbar-middle-close'
