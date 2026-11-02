@@ -3,3 +3,11 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+
+# Machine-specific DSH state and secrets must never be committed.
+.dsh/
+.plugin-restore-backups/
+.credentials.yaml
+.credentials.yml
+.env
+.env.*

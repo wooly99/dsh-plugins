@@ -1,0 +1,6 @@
+[
+  "./rightbar-middle-close",
+  "./archive-cleanup",
+  "dsh-codex-subscription@latest",
+  "@dsh-electron/dsh-plugin-git@latest"
+]

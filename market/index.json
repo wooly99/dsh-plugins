@@ -1,13 +1,13 @@
 {
-  "$comment": "Format-1 plugin market index for the bundles in this repository, validated with @deepseek-ai/dsh-plugin-market-index parseMarketIndex. The 40-hex commits are placeholders: replace each with the commit that contains that plugin directory at that version, then publish. Discover refuses redirects, so configure the final raw URL (a raw.githubusercontent.com 'raw' link, never the blob page).",
+  "$comment": "Optional format-1 index for middle-click close. Use the repository restore script to install all four plugins.",
   "format": 1,
   "title": {
     "en": "小毛毛熊's DSH plugins",
     "zh": "小毛毛熊的 DSH 插件"
   },
   "description": {
-    "en": "Personal DSH bundles: right sidebar tab middle-click close and conversation delete.",
-    "zh": "个人 DSH 插件：侧栏标签中键关闭、会话删除。"
+    "en": "Personal DSH plugins: right sidebar tab middle-click close.",
+    "zh": "个人 DSH 插件：侧栏标签中键关闭。"
   },
   "metadata": {
     "categories": {
@@ -59,44 +59,6 @@
             "url": "https://github.com/wooly99/dsh-plugins",
             "commit": "50203f25cf86b2c809bb4ac9e91d31eec6256a73",
             "path": "rightbar-middle-close"
-          },
-          "engines": {
-            "dsh": ">=0.2.1-rc.5 <0.3.0"
-          }
-        }
-      ]
-    },
-    {
-      "name": "@local/dsh-session-delete",
-      "title": {
-        "en": "Session Delete",
-        "zh": "会话删除"
-      },
-      "description": {
-        "en": "Deletes a conversation permanently from the sidebar Session menu.",
-        "zh": "在会话菜单中加入「删除会话」，永久删除该会话在本机的聊天记录。"
-      },
-      "author": "小毛毛熊",
-      "icon": "./icons/session-delete.svg",
-      "metadata": {
-        "category": "session",
-        "keywords": [
-          "delete",
-          "session",
-          "conversation",
-          "删除",
-          "会话"
-        ]
-      },
-      "versions": [
-        {
-          "version": "1.0.0",
-          "publishTimestamp": 1793605200,
-          "source": {
-            "type": "git",
-            "url": "https://github.com/wooly99/dsh-plugins",
-            "commit": "50203f25cf86b2c809bb4ac9e91d31eec6256a73",
-            "path": "session-delete"
           },
           "engines": {
             "dsh": ">=0.2.1-rc.5 <0.3.0"
