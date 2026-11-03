@@ -6,8 +6,8 @@
     "zh": "小毛毛熊的 DSH 插件"
   },
   "description": {
-    "en": "Personal DSH plugins: right sidebar tab middle-click close, archive cleanup, Codex subscription and a Git view.",
-    "zh": "个人 DSH 插件：侧栏标签中键关闭、归档清理、Codex 订阅接入与 Git 可视化。"
+    "en": "Personal DSH plugins: right sidebar tab middle-click close, archive cleanup, turn code differences, Codex subscription and a Git view.",
+    "zh": "个人 DSH 插件：侧栏标签中键关闭、归档清理、本轮代码差异、Codex 订阅接入与 Git 可视化。"
   },
   "metadata": {
     "categories": {
@@ -68,7 +68,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "0c41fa3ef880053bf0b1bbbf9a856bd616f14afe",
+            "commit": "409e1e28b8b14ef9071bbffeaf60eac9914c4436",
             "path": "rightbar-middle-close"
           },
           "engines": {
@@ -107,8 +107,49 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "0c41fa3ef880053bf0b1bbbf9a856bd616f14afe",
+            "commit": "409e1e28b8b14ef9071bbffeaf60eac9914c4436",
             "path": "archive-cleanup"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.5 <0.3.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@local/dsh-turn-diff-only",
+      "title": {
+        "en": "Turn Diff Only",
+        "zh": "仅显示本轮代码差异"
+      },
+      "description": {
+        "en": "Keep code differences, Standard and Creator modes; hide Trajectory and advanced preset choices.",
+        "zh": "保留本轮代码差异、标准及创造模式，隐藏轨迹和扩展预设选项。"
+      },
+      "icon": "./icons/turn-diff-only.svg",
+      "metadata": {
+        "category": "ui",
+        "keywords": [
+          "diff",
+          "trajectory",
+          "preset",
+          "standard",
+          "creator",
+          "代码差异",
+          "轨迹",
+          "标准模式",
+          "创造模式"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.1.0",
+          "publishTimestamp": 1793689645,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/wooly99/dsh-plugins.git",
+            "commit": "409e1e28b8b14ef9071bbffeaf60eac9914c4436",
+            "path": "turn-diff-only"
           },
           "engines": {
             "dsh": ">=0.2.1-rc.5 <0.3.0"

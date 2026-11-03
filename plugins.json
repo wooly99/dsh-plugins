@@ -2,7 +2,7 @@
   "$comment": "Single source of truth for this repo's plugin list. Run `node scripts/plugins.mjs index` after editing; never hand-edit market/index.json or the generated README blocks.",
   "profile": "desktop",
   "repository": "https://github.com/wooly99/dsh-plugins",
-  "commit": "0c41fa3ef880053bf0b1bbbf9a856bd616f14afe",
+  "commit": "409e1e28b8b14ef9071bbffeaf60eac9914c4436",
   "engines": {
     "dsh": ">=0.2.1-rc.5 <0.3.0"
   },
@@ -12,8 +12,8 @@
       "zh": "小毛毛熊的 DSH 插件"
     },
     "description": {
-      "en": "Personal DSH plugins: right sidebar tab middle-click close, archive cleanup, Codex subscription and a Git view.",
-      "zh": "个人 DSH 插件：侧栏标签中键关闭、归档清理、Codex 订阅接入与 Git 可视化。"
+      "en": "Personal DSH plugins: right sidebar tab middle-click close, archive cleanup, turn code differences, Codex subscription and a Git view.",
+      "zh": "个人 DSH 插件：侧栏标签中键关闭、归档清理、本轮代码差异、Codex 订阅接入与 Git 可视化。"
     },
     "categories": {
       "ui": {
@@ -85,6 +85,30 @@
         "归档",
         "清理",
         "会话"
+      ]
+    },
+    {
+      "source": "repo",
+      "dir": "turn-diff-only",
+      "category": "ui",
+      "title": {
+        "en": "Turn Diff Only",
+        "zh": "仅显示本轮代码差异"
+      },
+      "summary": {
+        "en": "Keep code differences, Standard and Creator modes; hide Trajectory and advanced preset choices.",
+        "zh": "保留本轮代码差异、标准及创造模式，隐藏轨迹和扩展预设选项。"
+      },
+      "keywords": [
+        "diff",
+        "trajectory",
+        "preset",
+        "standard",
+        "creator",
+        "代码差异",
+        "轨迹",
+        "标准模式",
+        "创造模式"
       ]
     },
     {

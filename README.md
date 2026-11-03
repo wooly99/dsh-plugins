@@ -1,12 +1,13 @@
 # DSH 插件（小毛毛熊）
 
-个人使用的 DSH 插件合集。两个插件源码在本仓库，另外两个从 npm 安装确切版本，不复制第三方源码。
+个人使用的 DSH 插件合集。三个插件源码在本仓库，另外两个从 npm 安装确切版本，不复制第三方源码。
 
 <!-- plugins:table:start -->
 | 插件 | 功能 | 版本 | 来源 |
 |---|---|---|---|
 | [侧栏标签中键关闭](rightbar-middle-close/README.md) | 鼠标中键关闭右侧边栏标签。 | 1.0.0 | 本仓库 |
 | [归档清理](archive-cleanup/README.md) | 在设置里一键永久删除已归档会话，释放磁盘空间。 | 1.1.1 | 本仓库 |
+| [仅显示本轮代码差异](turn-diff-only/README.md) | 保留本轮代码差异、标准及创造模式，隐藏轨迹和扩展预设选项。 | 1.1.0 | 本仓库 |
 | [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.3 | npm |
 | [Git 可视化](https://github.com/cherrchen/dsh-plugin-git) | 在 DSH 中查看和操作 Git 仓库。 | 0.2.9 | npm |
 <!-- plugins:table:end -->
@@ -20,8 +21,9 @@
 侧栏「插件」→「添加插件」，一行一条粘进去：
 
 <!-- plugins:specs:start -->
-- 侧栏标签中键关闭：`git+https://github.com/wooly99/dsh-plugins.git#0c41fa3ef880053bf0b1bbbf9a856bd616f14afe&path:/rightbar-middle-close`
-- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#0c41fa3ef880053bf0b1bbbf9a856bd616f14afe&path:/archive-cleanup`
+- 侧栏标签中键关闭：`git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/rightbar-middle-close`
+- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/archive-cleanup`
+- 仅显示本轮代码差异：`git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/turn-diff-only`
 - Codex 订阅接入：`dsh-codex-subscription@3.2.3`
 - Git 可视化：`@dsh-electron/dsh-plugin-git@0.2.9`
 <!-- plugins:specs:end -->
@@ -34,7 +36,7 @@
 
 <!-- plugins:install:start -->
 ```bash
-dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#0c41fa3ef880053bf0b1bbbf9a856bd616f14afe&path:/rightbar-middle-close" "git+https://github.com/wooly99/dsh-plugins.git#0c41fa3ef880053bf0b1bbbf9a856bd616f14afe&path:/archive-cleanup" "dsh-codex-subscription@3.2.3" "@dsh-electron/dsh-plugin-git@0.2.9"
+dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/rightbar-middle-close" "git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/archive-cleanup" "git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/turn-diff-only" "dsh-codex-subscription@3.2.3" "@dsh-electron/dsh-plugin-git@0.2.9"
 ```
 <!-- plugins:install:end -->
 
@@ -70,7 +72,7 @@ dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly9
 | `node scripts/plugins.mjs index --refresh` | 先把 npm 条目的 `tag` 解析成确切版本写回清单，再生成（`--registry` 换源） |
 | `node scripts/plugins.mjs index --commit <sha>` | 换 pin，并把它写回 `plugins.json` |
 | `node scripts/plugins.mjs check` | 只校验生成物与清单一致，可放进 CI |
-| `node scripts/plugins.mjs specs` | 打印四条 spec（`--local` 打印 `link:` 形式） |
+| `node scripts/plugins.mjs specs` | 打印五条 spec（`--local` 打印 `link:` 形式） |
 | `node scripts/plugins.mjs install` | 用本地 checkout 安装；`--remote`、`--profile`、`--dsh`、`--dry-run` |
 
 `index --commit` 在插件目录有未提交改动时会拒绝，避免 pin 到一个装不出当前代码的提交（`--allow-dirty` 可跳过）。
