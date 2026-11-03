@@ -1,13 +1,26 @@
-# 可选插件市场
+# 插件市场索引
 
-使用本仓库的[恢复脚本](../README.md)即可安装四个插件，**不需要启用自定义插件市场**。
+[index.json](index.json) 与 [icons/](icons/) 由 `node scripts/plugins.mjs index` 从 [../plugins.json](../plugins.json) 生成，**不要手改**。
 
-这里的 [index.json](index.json) 仅保留「侧栏中键关闭」的发现页安装入口。旧的「删除会话」已从索引移除；归档清理、Codex 和 Git 可视化直接通过恢复脚本安装。
+## 使用
 
-如需使用发现页，添加以下索引地址：
+插件页 →「实验性插件」→「更多」→ 启用「自定义插件市场」，然后在「发现」里添加：
 
 ```text
 https://raw.githubusercontent.com/wooly99/dsh-plugins/main/market/index.json
 ```
 
-市场按确切版本和 Git commit 安装，不会自动读取本地改动。更新市场条目时，先提交插件源码，再修改索引中的 `version`、`publishTimestamp` 和 `source.commit`，最后推送。
+## 约定
+
+- 本仓库插件按 `source.type: git` 安装：`url` + `commit` + `path`，内容锁在提交上，不会读到本地改动。
+- npm 插件按 `source.type: npm` 与确切的 `version` 安装。
+- `publishTimestamp` 对本仓库插件取自该目录最后一次提交时间，对 npm 插件取自清单里记录的时间，所以生成过程离线且可复现。
+- `engines.dsh` 只在本仓库插件（顶层 `engines`）或 npm 条目自己声明时写入；超出范围的版本在发现页显示为不兼容，可以更新范围或加版本豁免。
+
+## 校验
+
+```bash
+node scripts/plugins.mjs check
+```
+
+生成物与清单不一致时以非零状态退出，适合放进 CI。

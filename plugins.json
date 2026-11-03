@@ -1,6 +1,138 @@
-[
-  "./rightbar-middle-close",
-  "./archive-cleanup",
-  "dsh-codex-subscription@latest",
-  "@dsh-electron/dsh-plugin-git@latest"
-]
+{
+  "$comment": "Single source of truth for this repo's plugin list. Run `node scripts/plugins.mjs index` after editing; never hand-edit market/index.json or the generated README blocks.",
+  "profile": "desktop",
+  "repository": "https://github.com/wooly99/dsh-plugins",
+  "commit": "0c41fa3ef880053bf0b1bbbf9a856bd616f14afe",
+  "engines": {
+    "dsh": ">=0.2.1-rc.5 <0.3.0"
+  },
+  "market": {
+    "title": {
+      "en": "xiaomaomaoxiong's DSH plugins",
+      "zh": "小毛毛熊的 DSH 插件"
+    },
+    "description": {
+      "en": "Personal DSH plugins: right sidebar tab middle-click close, archive cleanup, Codex subscription and a Git view.",
+      "zh": "个人 DSH 插件：侧栏标签中键关闭、归档清理、Codex 订阅接入与 Git 可视化。"
+    },
+    "categories": {
+      "ui": {
+        "title": {
+          "en": "Interface",
+          "zh": "界面"
+        }
+      },
+      "session": {
+        "title": {
+          "en": "Sessions",
+          "zh": "会话"
+        }
+      },
+      "model": {
+        "title": {
+          "en": "Models",
+          "zh": "模型"
+        }
+      },
+      "git": {
+        "title": {
+          "en": "Git",
+          "zh": "Git"
+        }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "source": "repo",
+      "dir": "rightbar-middle-close",
+      "category": "ui",
+      "title": {
+        "en": "Right sidebar tab middle-click close",
+        "zh": "侧栏标签中键关闭"
+      },
+      "summary": {
+        "en": "Close a right sidebar tab with a middle mouse click.",
+        "zh": "鼠标中键关闭右侧边栏标签。"
+      },
+      "keywords": [
+        "middle click",
+        "right sidebar",
+        "tab",
+        "close",
+        "中键",
+        "右栏",
+        "标签"
+      ]
+    },
+    {
+      "source": "repo",
+      "dir": "archive-cleanup",
+      "category": "session",
+      "title": {
+        "en": "Archive cleanup",
+        "zh": "归档清理"
+      },
+      "summary": {
+        "en": "Permanently delete archived sessions from settings to free disk space.",
+        "zh": "在设置里一键永久删除已归档会话，释放磁盘空间。"
+      },
+      "keywords": [
+        "archive",
+        "cleanup",
+        "delete session",
+        "disk space",
+        "归档",
+        "清理",
+        "会话"
+      ]
+    },
+    {
+      "source": "npm",
+      "package": "dsh-codex-subscription",
+      "version": "3.2.3",
+      "publishTimestamp": 1793431190,
+      "homepage": "https://github.com/WSL043/dsh-codex-subscription",
+      "category": "model",
+      "title": {
+        "en": "Codex subscription",
+        "zh": "Codex 订阅接入"
+      },
+      "summary": {
+        "en": "Use a ChatGPT / Codex subscription from DSH.",
+        "zh": "使用 ChatGPT / Codex 订阅。"
+      },
+      "keywords": [
+        "codex",
+        "chatgpt",
+        "subscription",
+        "oauth",
+        "订阅"
+      ]
+    },
+    {
+      "source": "npm",
+      "package": "@dsh-electron/dsh-plugin-git",
+      "version": "0.2.9",
+      "publishTimestamp": 1793343366,
+      "homepage": "https://github.com/cherrchen/dsh-plugin-git",
+      "category": "git",
+      "title": {
+        "en": "Git view",
+        "zh": "Git 可视化"
+      },
+      "summary": {
+        "en": "View and operate Git repositories inside DSH.",
+        "zh": "在 DSH 中查看和操作 Git 仓库。"
+      },
+      "keywords": [
+        "git",
+        "repository",
+        "diff",
+        "commit",
+        "仓库",
+        "提交"
+      ]
+    }
+  ]
+}
