@@ -90,8 +90,9 @@
     {
       "source": "npm",
       "package": "dsh-codex-subscription",
+      "tag": "latest",
       "version": "3.2.3",
-      "publishTimestamp": 1793431190,
+      "publishTimestamp": 1793459990,
       "homepage": "https://github.com/WSL043/dsh-codex-subscription",
       "category": "model",
       "title": {
@@ -113,8 +114,9 @@
     {
       "source": "npm",
       "package": "@dsh-electron/dsh-plugin-git",
+      "tag": "latest",
       "version": "0.2.9",
-      "publishTimestamp": 1793343366,
+      "publishTimestamp": 1793372166,
       "homepage": "https://github.com/cherrchen/dsh-plugin-git",
       "category": "git",
       "title": {

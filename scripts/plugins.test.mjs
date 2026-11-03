@@ -10,6 +10,7 @@ import {
   renderSpecs,
   renderTable,
   replaceBlock,
+  resolveTag,
   specOf,
   specsOf
 } from './plugins.mjs';
@@ -92,6 +93,32 @@ test('an npm entry needs an exact version and a publish time', () => {
   const time = raw();
   delete time.plugins[1].publishTimestamp;
   assert.throws(() => normalizeManifest(time, readPackage), /publishTimestamp/);
+});
+
+test('a tagged npm entry without a resolved version points at --refresh', () => {
+  const manifest = raw();
+  manifest.plugins[1].tag = 'latest';
+  delete manifest.plugins[1].version;
+  assert.throws(() => normalizeManifest(manifest, readPackage), /index --refresh/);
+});
+
+test('resolveTag turns a dist-tag into an exact version and a unix time', async () => {
+  const document = {
+    'dist-tags': { latest: '9.8.7' },
+    time: { '9.8.7': '2026-10-31T15:19:50.000Z' }
+  };
+  const seen = [];
+  const fetchImpl = async (url) => {
+    seen.push(url);
+    return { ok: true, json: async () => document };
+  };
+  assert.deepEqual(await resolveTag('@scope/pkg', 'latest', { fetchImpl }), { version: '9.8.7', publishTimestamp: 1793459990 });
+  assert.deepEqual(seen, ['https://registry.npmjs.org/%40scope%2Fpkg']);
+
+  const noTag = async () => ({ ok: true, json: async () => ({ 'dist-tags': {}, time: {} }) });
+  await assert.rejects(resolveTag('pkg', 'latest', { fetchImpl: noTag }), /没有 dist-tag latest/);
+  const badHttp = async () => ({ ok: false, status: 404 });
+  await assert.rejects(resolveTag('pkg', 'latest', { fetchImpl: badHttp }), /HTTP 404/);
 });
 
 test('remote repo specs pin commit and subdirectory', () => {

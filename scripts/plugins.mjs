@@ -40,8 +40,11 @@ export function normalizeManifest(manifest, readPackage) {
   const plugins = (manifest.plugins ?? []).map((plugin) => {
     let resolved;
     if (plugin.source === 'npm') {
-      if (typeof plugin.package !== 'string' || typeof plugin.version !== 'string' || !/^\d+\.\d+\.\d+/.test(plugin.version)) {
-        throw new Error('plugins.json: npm 条目需要 package 和确切 version');
+      if (typeof plugin.package !== 'string' || plugin.package === '') throw new Error('plugins.json: npm 条目需要 package');
+      if (plugin.tag !== undefined && (typeof plugin.tag !== 'string' || plugin.tag === '')) throw new Error(`${plugin.package}: tag 必须是非空字符串`);
+      if (typeof plugin.version !== 'string' || !/^\d+\.\d+\.\d+/.test(plugin.version)) {
+        const hint = plugin.tag === undefined ? '需要确切 version' : `还没有解析过 ${plugin.tag}，先运行 node scripts/plugins.mjs index --refresh`;
+        throw new Error(`${plugin.package}: ${hint}`);
       }
       if (!Number.isInteger(plugin.publishTimestamp)) throw new Error(`${plugin.package}: 需要 publishTimestamp（秒）`);
       resolved = { ...plugin, name: plugin.package };
@@ -222,23 +225,58 @@ function ensureInCommit(root, commit, dir) {
   if (result.status !== 0) throw new Error(`提交 ${commit} 里没有 ${dir}/package.json，先提交插件源码再重新 pin`);
 }
 
+/* ------------------------------------------------------------------ registry */
+
+/**
+ * Resolve a dist-tag to the exact version and publish time this repo records.
+ * Resolved at generation time so installs, the market index and `check` all stay
+ * exact and offline.
+ * @param {string} packageName npm package name
+ * @param {string} tag dist-tag such as `latest`
+ * @param {{ registry?: string, fetchImpl?: typeof fetch }} options
+ * @returns {Promise<{ version: string, publishTimestamp: number }>}
+ */
+export async function resolveTag(packageName, tag, { registry = 'https://registry.npmjs.org', fetchImpl = fetch } = {}) {
+  const url = `${registry.replace(/\/+$/, '')}/${encodeURIComponent(packageName)}`;
+  const response = await fetchImpl(url, { headers: { accept: 'application/json' } });
+  if (!response.ok) throw new Error(`查询 ${packageName} 失败: HTTP ${response.status}`);
+  const document = await response.json();
+  const version = document['dist-tags']?.[tag];
+  if (typeof version !== 'string') throw new Error(`${packageName} 没有 dist-tag ${tag}`);
+  const published = document.time?.[version];
+  if (typeof published !== 'string') throw new Error(`${packageName}@${version} 缺少发布时间`);
+  return { version, publishTimestamp: Math.floor(Date.parse(published) / 1000) };
+}
+
+async function refreshTags(raw, registry) {
+  for (const entry of raw.plugins.filter((plugin) => plugin.source === 'npm' && typeof plugin.tag === 'string')) {
+    const { version, publishTimestamp } = await resolveTag(entry.package, entry.tag, { registry });
+    if (entry.version !== version) console.log(`${entry.package}: ${entry.version ?? '未解析'} -> ${version} (${entry.tag})`);
+    entry.version = version;
+    entry.publishTimestamp = publishTimestamp;
+  }
+}
+
 /* ----------------------------------------------------------------- commands */
 
 async function index(root, args) {
   const raw = await readJson(join(root, 'plugins.json'));
-  let commit = raw.commit;
+  const next = structuredClone(raw);
+  let commit = next.commit;
   if (args.commit !== undefined) {
     if (!/^[0-9a-f]{40}$/.test(args.commit)) throw new Error('--commit 需要 40 位小写 sha');
-    const dirty = dirtyPaths(root, normalizeManifest(raw, packageReader(root)));
+    const dirty = dirtyPaths(root, normalizeManifest(next, packageReader(root)));
     if (dirty !== '' && args['allow-dirty'] !== true) throw new Error(`插件源码有未提交改动，先提交再 pin：\n${dirty}`);
     commit = args.commit;
   }
-  // Generate before touching plugins.json, so a pin that cannot install leaves the repo unchanged.
-  const manifest = normalizeManifest({ ...raw, commit }, packageReader(root));
+  if (args.refresh === true) await refreshTags(next, args.registry);
+  // Generate before writing anything, so a pin or a refresh that cannot install leaves the repo unchanged.
+  const manifest = normalizeManifest({ ...next, commit }, packageReader(root));
   const { files, icons } = await generated(root, manifest, { commit, root });
-  if (commit !== raw.commit) {
-    await writeFile(join(root, 'plugins.json'), `${JSON.stringify({ ...raw, commit }, null, 2)}\n`);
-    console.log('updated plugins.json commit');
+  const serialized = `${JSON.stringify({ ...next, commit }, null, 2)}\n`;
+  if (serialized !== `${JSON.stringify({ ...raw, commit: raw.commit }, null, 2)}\n`) {
+    await writeFile(join(root, 'plugins.json'), serialized);
+    console.log('updated plugins.json');
   }
   for (const [file, content] of Object.entries(files)) {
     await writeFile(join(root, file), content);

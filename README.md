@@ -49,12 +49,13 @@ dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly9
 ## 更新
 
 - **本仓库插件**：改源码 → 提交 → `node scripts/plugins.mjs index --commit <新提交>` → 推送。已装的插件在插件页卸载后按新 spec 重装；DSH 不支持原地升级。
-- **npm 插件**：改 [plugins.json](plugins.json) 里的 `version` 与 `publishTimestamp`，再跑一次 `node scripts/plugins.mjs index`。
+- **npm 插件**：清单里只写 `"tag": "latest"`，跑 `node scripts/plugins.mjs index --refresh`，它去 npm 查这个 tag 的确切版本与发布时间并写回清单；生成的 spec、市场索引、`install` 用的都是这个确切版本，`check` 仍然离线。
 - **随 DSH 提供的组合包**：随 DSH 升级，不在这个清单里。
 
 ## 需要注意
 
 - 不要在插件页贴仓库根 URL（原因见上）。
+- 外部插件在 spec 里用清单解析好的确切版本，不用 `@latest`：后者会被 pnpm 记成 `^x.y.z`，「换机装到哪个版本」取决于解析时机，而不是你验证过的那个。
 - 本仓库插件的 `engines.dsh` 是 `>=0.2.1-rc.5 <0.3.0`。DSH 升到范围外时安装会被拒绝，需要更新这个范围，或给该版本加豁免。
 - 仓库不保存登录凭据或聊天记录；不要把完整 DSH 数据目录提交进来。
 - [归档清理](archive-cleanup/README.md) 只处理已归档会话，永久删除不可恢复。
@@ -66,6 +67,7 @@ dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly9
 | 命令 | 作用 |
 |---|---|
 | `node scripts/plugins.mjs index` | 生成 `market/index.json`、`market/icons/`、本 README 的三段表格 |
+| `node scripts/plugins.mjs index --refresh` | 先把 npm 条目的 `tag` 解析成确切版本写回清单，再生成（`--registry` 换源） |
 | `node scripts/plugins.mjs index --commit <sha>` | 换 pin，并把它写回 `plugins.json` |
 | `node scripts/plugins.mjs check` | 只校验生成物与清单一致，可放进 CI |
 | `node scripts/plugins.mjs specs` | 打印四条 spec（`--local` 打印 `link:` 形式） |
