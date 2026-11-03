@@ -1,0 +1,24 @@
+{
+  "name": "@local/dsh-turn-diff-only",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Show turn code differences, hide Trajectory and advanced presets, and preserve Standard and Creator modes.",
+  "engines": { "dsh": ">=0.2.1-rc.5 <0.3.0" },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": ["index.js", "client.js", "cordis.patch.yml", "README.md", "locale/*.json", "icon.svg"],
+  "scripts": { "test": "node --test tests/*.test.mjs" },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": ["@deepseek-ai/dsh-client-ui-settings", "@deepseek-ai/dsh-client-ui-agent-preset", "@deepseek-ai/dsh-client-ui-renderer"]
+    }
+  }
+}
