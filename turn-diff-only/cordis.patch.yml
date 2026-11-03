@@ -1,8 +1,0 @@
-# Keep the Agent preset UI and all Host preset definitions mounted.
-# Only the Trajectory presentation module is disabled.
-- id: ui-trajectory
-  name: '@deepseek-ai/dsh-client-ui-trajectory'
-  disabled: true
-- insert:
-    - id: turn-diff-only
-      name: '@local/dsh-turn-diff-only'

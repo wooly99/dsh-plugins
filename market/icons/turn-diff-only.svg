@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Turn code differences">
-  <rect x="4" y="4" width="56" height="56" rx="14" fill="#2468d6"/>
-  <path d="M25 20 13 32l12 12M39 20l12 12-12 12" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M29 24h8M33 20v8M29 40h8" fill="none" stroke="#b9f7d0" stroke-width="3" stroke-linecap="round"/>
-</svg>

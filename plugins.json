@@ -12,8 +12,8 @@
       "zh": "小毛毛熊的 DSH 插件"
     },
     "description": {
-      "en": "Personal DSH plugins: right sidebar tab middle-click close, archive cleanup, turn code differences, Codex subscription and a Git view.",
-      "zh": "个人 DSH 插件：侧栏标签中键关闭、归档清理、本轮代码差异、Codex 订阅接入与 Git 可视化。"
+      "en": "Personal DSH plugins: right sidebar tab middle-click close, archive cleanup, Codex subscription and a Git view.",
+      "zh": "个人 DSH 插件：侧栏标签中键关闭、归档清理、Codex 订阅接入与 Git 可视化。"
     },
     "categories": {
       "ui": {
@@ -85,30 +85,6 @@
         "归档",
         "清理",
         "会话"
-      ]
-    },
-    {
-      "source": "repo",
-      "dir": "turn-diff-only",
-      "category": "ui",
-      "title": {
-        "en": "Turn Diff Only",
-        "zh": "仅显示本轮代码差异"
-      },
-      "summary": {
-        "en": "Keep code differences, Standard and Creator modes; hide Trajectory and advanced preset choices.",
-        "zh": "保留本轮代码差异、标准及创造模式，隐藏轨迹和扩展预设选项。"
-      },
-      "keywords": [
-        "diff",
-        "trajectory",
-        "preset",
-        "standard",
-        "creator",
-        "代码差异",
-        "轨迹",
-        "标准模式",
-        "创造模式"
       ]
     },
     {
