@@ -1,9 +1,9 @@
 {
   "name": "@local/dsh-rightbar-middle-close",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
-  "description": "Close the right sidebar with a middle mouse click",
+  "description": "Small UI enhancements: middle-click sidebar tabs, session workspace header and collapsed workspace status",
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
@@ -26,7 +26,11 @@
       "platform": "web",
       "immediately": true,
       "inject": [
-        "@deepseek-ai/dsh-client-ui-sidebar-right"
+        "@deepseek-ai/dsh-client-ui-sidebar-right",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-client-ui-session",
+        "@deepseek-ai/dsh-client-locale"
       ]
     }
   }

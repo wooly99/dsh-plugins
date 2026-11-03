@@ -1,9 +1,8 @@
 /**
- * Host half of the rightbar-middle-close bundle.
+ * Host half of UI Enhancements (legacy package id kept for compatibility).
  *
- * The gesture belongs to the browser: the Client module installs one capture
- * listener and collapses the right sidebar through `ctx.sidebarRight`. The Host
- * row exists so the profile carries the bundle and the Plugins pages can list
- * its title, description, and icon; it wires no Host service.
+ * Both components run in the Desktop/Web renderer. This no-op Host row lets
+ * the profile carry the bundle and exposes its metadata in the Plugins page.
+ * No Host service or session configuration is changed.
  */
 export function apply() {}
