@@ -5,7 +5,7 @@
 <!-- plugins:table:start -->
 | 插件 | 功能 | 版本 | 来源 |
 |---|---|---|---|
-| [侧栏标签中键关闭](rightbar-middle-close/README.md) | 鼠标中键关闭右侧边栏标签。 | 1.0.0 | 本仓库 |
+| [界面小增强](rightbar-middle-close/README.md) | 侧栏标签中键关闭、会话工作区顶部栏标记、折叠工作区状态提示。 | 1.1.0 | 本仓库 |
 | [归档清理](archive-cleanup/README.md) | 在设置里一键永久删除已归档会话，释放磁盘空间。 | 1.1.1 | 本仓库 |
 | [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.3 | npm |
 | [Git 可视化](https://github.com/cherrchen/dsh-plugin-git) | 在 DSH 中查看和操作 Git 仓库。 | 0.2.9 | npm |
@@ -20,8 +20,8 @@
 侧栏「插件」→「添加插件」，一行一条粘进去：
 
 <!-- plugins:specs:start -->
-- 侧栏标签中键关闭：`git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/rightbar-middle-close`
-- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/archive-cleanup`
+- 界面小增强：`git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/rightbar-middle-close`
+- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/archive-cleanup`
 - Codex 订阅接入：`dsh-codex-subscription@3.2.3`
 - Git 可视化：`@dsh-electron/dsh-plugin-git@0.2.9`
 <!-- plugins:specs:end -->
@@ -34,7 +34,7 @@
 
 <!-- plugins:install:start -->
 ```bash
-dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/rightbar-middle-close" "git+https://github.com/wooly99/dsh-plugins.git#409e1e28b8b14ef9071bbffeaf60eac9914c4436&path:/archive-cleanup" "dsh-codex-subscription@3.2.3" "@dsh-electron/dsh-plugin-git@0.2.9"
+dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/rightbar-middle-close" "git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/archive-cleanup" "dsh-codex-subscription@3.2.3" "@dsh-electron/dsh-plugin-git@0.2.9"
 ```
 <!-- plugins:install:end -->
 
@@ -53,6 +53,8 @@ dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly9
 - **随 DSH 提供的组合包**：随 DSH 升级，不在这个清单里。
 
 ## 需要注意
+
+- [界面小增强](rightbar-middle-close/README.md) 是原「侧栏标签中键关闭」插件的新显示名称，沿用原包标识。目前包含侧栏标签中键关闭、会话工作区顶部栏标记、折叠工作区状态提示三个组件，后续界面小功能统一在这里扩展。
 
 - 不要在插件页贴仓库根 URL（原因见上）。
 - 外部插件在 spec 里用清单解析好的确切版本，不用 `@latest`：后者会被 pnpm 记成 `^x.y.z`，「换机装到哪个版本」取决于解析时机，而不是你验证过的那个。
@@ -75,6 +77,6 @@ dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly9
 
 `index --commit` 在插件目录有未提交改动时会拒绝，避免 pin 到一个装不出当前代码的提交（`--allow-dirty` 可跳过）。
 
-测试：`node --test scripts/plugins.test.mjs`（纯函数，不碰网络，也不碰 profile）。
+测试：`node --test scripts/plugins.test.mjs rightbar-middle-close/tests/*.test.mjs archive-cleanup/tests/*.test.mjs`（离线执行，不碰真实 profile）。
 
 市场索引是可选的第二个入口：启用「自定义插件市场」后添加 `https://raw.githubusercontent.com/wooly99/dsh-plugins/main/market/index.json`，见 [market/README.md](market/README.md)。

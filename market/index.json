@@ -6,8 +6,8 @@
     "zh": "小毛毛熊的 DSH 插件"
   },
   "description": {
-    "en": "Personal DSH plugins: right sidebar tab middle-click close, archive cleanup, Codex subscription and a Git view.",
-    "zh": "个人 DSH 插件：侧栏标签中键关闭、归档清理、Codex 订阅接入与 Git 可视化。"
+    "en": "Personal DSH plugins: UI enhancements, archive cleanup, Codex subscription and a Git view.",
+    "zh": "个人 DSH 插件：界面小增强、归档清理、Codex 订阅接入与 Git 可视化。"
   },
   "metadata": {
     "categories": {
@@ -41,12 +41,12 @@
     {
       "name": "@local/dsh-rightbar-middle-close",
       "title": {
-        "en": "Right sidebar tab middle-click close",
-        "zh": "侧栏标签中键关闭"
+        "en": "UI Enhancements",
+        "zh": "界面小增强"
       },
       "description": {
-        "en": "Close a right sidebar tab with a middle mouse click.",
-        "zh": "鼠标中键关闭右侧边栏标签。"
+        "en": "Middle-click sidebar tabs, session workspace in the header, and activity indicators for collapsed workspaces.",
+        "zh": "侧栏标签中键关闭、会话工作区顶部栏标记、折叠工作区状态提示。"
       },
       "icon": "./icons/rightbar-middle-close.svg",
       "metadata": {
@@ -56,19 +56,28 @@
           "right sidebar",
           "tab",
           "close",
+          "workspace",
+          "header",
+          "enhancements",
+          "workspace status",
+          "loading",
+          "completion",
           "中键",
           "右栏",
-          "标签"
+          "标签",
+          "工作区",
+          "顶部栏",
+          "增强"
         ]
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1793561173,
+          "version": "1.1.0",
+          "publishTimestamp": 1793700939,
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "409e1e28b8b14ef9071bbffeaf60eac9914c4436",
+            "commit": "2b8b52d76f061cd314a02462bce41d18715425f7",
             "path": "rightbar-middle-close"
           },
           "engines": {
@@ -107,7 +116,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "409e1e28b8b14ef9071bbffeaf60eac9914c4436",
+            "commit": "2b8b52d76f061cd314a02462bce41d18715425f7",
             "path": "archive-cleanup"
           },
           "engines": {
