@@ -1,0 +1,16 @@
+{
+  "name": "@local/dsh-open-in-app-fix",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Fix VS Code folder launches from DSH Desktop without changing the application archive or host environment",
+  "engines": { "dsh": ">=0.2.1-rc.5 <0.3.0" },
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": ["index.js", "spawn-guard.js", "cordis.patch.yml", "locale/*.json", "icon.svg", "README.md"],
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } },
+  "scripts": { "test": "node --test tests/*.test.mjs" }
+}

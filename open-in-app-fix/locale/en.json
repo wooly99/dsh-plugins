@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "VS Code launch fix",
+    "description": "Fix Windows Desktop session-folder launches by removing inherited Electron node mode from VS Code GUI children, without changing the archive or host environment."
+  }
+}

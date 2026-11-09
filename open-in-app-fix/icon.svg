@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Folder launch repair">
+  <!-- Original artwork for this plugin; no third-party product logo. -->
+  <rect width="64" height="64" rx="14" fill="#142d42"/>
+  <path d="M10 21a4 4 0 0 1 4-4h13l6 6h17a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4z" fill="#f4bf50"/>
+  <path d="M31 30h14v14M44 31 29 46" fill="none" stroke="#142d42" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="49" cy="48" r="11" fill="#43cda5"/>
+  <path d="m43 48 4 4 7-8" fill="none" stroke="#142d42" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

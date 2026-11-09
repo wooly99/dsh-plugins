@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "VS Code 打开修复",
+    "description": "修复 Windows 桌面版用 VS Code 打开会话文件夹时错误继承 Electron 命令行模式的问题。不修改安装包或宿主环境变量。"
+  }
+}
