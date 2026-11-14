@@ -36,7 +36,7 @@ function browser({ slots = true } = {}) {
       },
     },
     window: { __ModuleLoader__: { load(module) {
-      assert.equal(module.id, '@local/dsh-rightbar-middle-close')
+      assert.equal(module.id, '@local/dsh-ui-enhancements')
       definition = module.factory(name => {
         assert.equal(name, 'react')
         return { createElement: (type, props, ...children) => ({ type, props, children }) }
@@ -129,15 +129,15 @@ test('long names are bounded with ellipsis but preserve the full path in accessi
   ui.dispose()
 })
 
-test('bundle keeps its legacy identity and declares the Desktop renderer dependencies', async () => {
+test('bundle uses the UI enhancements identity and declares the Desktop renderer dependencies', async () => {
   const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
   const patch = await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8')
-  assert.equal(pkg.name, '@local/dsh-rightbar-middle-close')
+  assert.equal(pkg.name, '@local/dsh-ui-enhancements')
   assert.equal(pkg.dsh.client.platform, 'web')
   assert.ok(!pkg.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-sidebar-right'))
   assert.ok(pkg.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-workspace'))
   assert.ok(pkg.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-conversation'))
-  assert.match(patch, /name: '@local\/dsh-rightbar-middle-close'/)
+  assert.match(patch, /name: '@local\/dsh-ui-enhancements'/)
   for (const lang of ['zh', 'en']) {
     const locale = JSON.parse(await readFile(new URL(`../locale/${lang}.json`, import.meta.url), 'utf8'))
     assert.equal(locale.meta.title, lang === 'zh' ? '界面小增强' : 'UI Enhancements')

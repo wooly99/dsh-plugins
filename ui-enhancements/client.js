@@ -1,6 +1,5 @@
 window.__ModuleLoader__.load({
-  // Keep the original package identity so existing installations do not duplicate it.
-  id: '@local/dsh-rightbar-middle-close',
+  id: '@local/dsh-ui-enhancements',
   factory(require) {
     const React = require('react')
     const h = React.createElement

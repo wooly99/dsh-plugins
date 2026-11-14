@@ -1,0 +1,3 @@
+- insert:
+    - id: ui-enhancements
+      name: '@local/dsh-ui-enhancements'

@@ -39,7 +39,7 @@
   "plugins": [
     {
       "source": "repo",
-      "dir": "rightbar-middle-close",
+      "dir": "ui-enhancements",
       "category": "ui",
       "title": {
         "en": "UI Enhancements",

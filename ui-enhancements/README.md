@@ -7,7 +7,9 @@
 | 会话工作区标记 | 顶部右侧工具区的最左侧，显示文件夹图标和当前会话所属工作区名称；悬停查看完整路径。 |
 | 折叠工作区状态 | 工作区折叠时，在标题行最右侧显示运行转圈、待处理黄点或未查看完成绿点。 |
 
-显示名称由「侧栏标签中键关闭」改为「界面小增强」，**包标识仍为 `@local/dsh-rightbar-middle-close`，目录仍为 `rightbar-middle-close`**，避免老用户装出两个重复插件。它是一个组合包，不是两个需要分别安装的插件。
+包标识为 `@local/dsh-ui-enhancements`，源码目录为 `ui-enhancements`。它是一个组合包，不是两个需要分别安装的插件。
+
+从旧版升级时，请先卸载旧的「界面小增强」包（历史包标识 `@local/dsh-rightbar-middle-close`），再安装本包，避免重复显示。此迁移不删除会话或工作区数据。
 
 ## 组件 1：会话工作区标记
 
@@ -40,18 +42,18 @@ Host 入口 `index.js` 为空实现，仅承载组合包。`dsh.client.platform:
 
 ## 安装与验证
 
-沿用仓库根目录的安装方式。老版本需在 Desktop 插件管理中卸载后重装；保留包标识不代表宿主支持原地升级。
+沿用仓库根目录的安装方式。老版本需在 Desktop 插件管理中卸载后重装；本次包标识已更名，不能同时保留旧包。
 
 本地开发可仅安装此包：
 
 ```powershell
-dsh plugin --profile desktop add --ignore-scripts "link:D:/projects-mine/dsh-plugins/rightbar-middle-close"
+dsh plugin --profile desktop add --ignore-scripts "link:D:/projects/dsh-plugins/ui-enhancements"
 ```
 
 使用本地源码时，在 Desktop 插件页确认启用，重启 Desktop 后验证。不要同时保留远程副本和另一个包名的重复副本。
 
 ```bash
-node --test rightbar-middle-close/tests/*.test.mjs
+node --test ui-enhancements/tests/*.test.mjs
 ```
 
 自动测试覆盖两个组件的注册/清理、按会话解析工作区、自定义名称、路径边界、折叠/展开、运行与完成优先级、等待交互、归档过滤、子代理、DOM 重建及 Observer 幂等性。尚未在 Desktop 实际界面进行视觉验证。

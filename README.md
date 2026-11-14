@@ -52,7 +52,7 @@ dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly9
 
 ## 需要注意
 
-- [界面小增强](rightbar-middle-close/README.md) 是原「侧栏标签中键关闭」插件的新显示名称，沿用原包标识。目前包含会话工作区顶部栏标记、折叠工作区状态提示两个组件，后续界面小功能统一在这里扩展。
+- [界面小增强](ui-enhancements/README.md) 使用包标识 `@local/dsh-ui-enhancements`，包含会话工作区顶部栏标记、折叠工作区状态提示。旧版用户需先卸载历史包，再安装新版，避免重复显示。
 
 - 不要在插件页贴仓库根 URL（原因见上）。
 - 外部插件在 spec 里用清单解析好的确切版本，不用 `@latest`：后者会被 pnpm 记成 `^x.y.z`，「换机装到哪个版本」取决于解析时机，而不是你验证过的那个。
@@ -75,6 +75,6 @@ dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly9
 
 `index --commit` 在插件目录有未提交改动时会拒绝，避免 pin 到一个装不出当前代码的提交（`--allow-dirty` 可跳过）。
 
-测试：`node --test scripts/plugins.test.mjs rightbar-middle-close/tests/*.test.mjs archive-cleanup/tests/*.test.mjs`（离线执行，不碰真实 profile）。
+测试：`node --test scripts/plugins.test.mjs ui-enhancements/tests/*.test.mjs archive-cleanup/tests/*.test.mjs`（离线执行，不碰真实 profile）。
 
 市场索引是可选的第二个入口：启用「自定义插件市场」后添加 `https://raw.githubusercontent.com/wooly99/dsh-plugins/main/market/index.json`，见 [market/README.md](market/README.md)。

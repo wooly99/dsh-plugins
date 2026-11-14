@@ -69,7 +69,7 @@ const README = [
 test('repository catalog contains only the three retained plugins', async () => {
   const manifest = await loadManifest();
   assert.deepEqual(manifest.plugins.map(plugin => plugin.name), [
-    '@local/dsh-rightbar-middle-close',
+    '@local/dsh-ui-enhancements',
     '@local/dsh-archive-cleanup',
     'dsh-codex-subscription'
   ]);
