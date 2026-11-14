@@ -4,7 +4,7 @@ window.__ModuleLoader__.load({
     const React = require('react')
     const h = React.createElement
     const NS = 'ui-enhancements'
-    const HEADER_SLOT = 'conversation.session.header.utilities'
+    const HEADER_SLOT = 'conversation.session.header.actions'
 
     // Component 1: a passive header label. Use the slot's session, not a global
     // selection or the agent process cwd (which can refer to a different session).
@@ -44,7 +44,7 @@ window.__ModuleLoader__.load({
       ctx.slots.inject(HEADER_SLOT, () => ctx.slots.register({
         name: HEADER_SLOT,
         id: 'ui-enhancements.session-workspace',
-        order: -1000, // Lead the right-aligned utility group, before its buttons.
+        order: 1000, // Trail the left title/action group, before the right utilities.
         locale: NS,
       }, WorkspaceHeader))
     }
