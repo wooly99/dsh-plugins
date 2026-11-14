@@ -69,6 +69,10 @@ function fixture() {
   runInNewContext(source, {
     document: {
       head, body, createElement: tag => new Node(tag),
+      createElementNS(namespace, tag) {
+        assert.equal(namespace, 'http://www.w3.org/2000/svg')
+        return new Node(tag)
+      },
       querySelectorAll(selector) {
         scans++
         const walk = parent => parent.children.flatMap(child => [...(child.matches(selector) ? [child] : []), ...walk(child)])
@@ -111,6 +115,52 @@ test('collapsed workspace shows spinner, native unread completion dot, then clea
   assert.equal(ui.marker().dataset.status, 'done')
   ui.status([['a', { running: false, completionUnread: false }]])
   assert.equal(ui.marker(), undefined)
+  ui.dispose()
+})
+
+test('status styles match native theme colors and keep the spinner circular', () => {
+  const ui = fixture()
+  const css = ui.head.children[0].textContent
+  const rule = selector => css.split('\n').find(line => line.startsWith(selector + ' {'))
+  const marker = '[data-ui-enhancements="collapsed-workspace-status"]'
+  const dot = rule(marker + '::before')
+  const spinner = rule(marker + '[data-status="running"]::before')
+  assert.match(dot, /background:var\(--dsw-alias-state-success-primary\)/)
+  assert.match(dot, /border-radius:50%; corner-shape:round;/)
+  assert.match(dot, /flex:none;/)
+  assert.match(dot, /box-sizing:border-box;/)
+  assert.match(spinner, /display:none;/)
+  assert.match(rule(marker + '[data-status="running"] > .uie-workspace-spinner'), /display:block;/)
+  assert.match(rule(marker + ' > .uie-workspace-spinner'), /var\(--dsw-alias-label-tertiary\)/)
+  assert.match(rule('.uie-workspace-spinner-motion'), /transform-origin:center; animation:uie-workspace-spin 1\.5s linear infinite;/)
+  assert.match(rule('.uie-workspace-spinner-track, .uie-workspace-spinner-arc'), /fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round;/)
+  assert.match(rule('.uie-workspace-spinner-track'), /opacity:\.25;/)
+  assert.match(rule('.uie-workspace-spinner-arc'), /stroke-dasharray:12 150; animation:uie-workspace-dash 1\.5s ease-in-out infinite;/)
+  assert.match(css, /50% \{ stroke-dasharray:24 150; stroke-dashoffset:-6;/)
+  assert.match(css, /prefers-reduced-motion:reduce.*animation:none;.*stroke-dasharray:18 150; stroke-dashoffset:-3;/)
+  ui.status([['a', { running: true }]])
+  const svg = ui.marker().children[0]
+  assert.equal(svg.tag, 'svg')
+  assert.equal(svg.getAttribute('viewBox'), '0 0 24 24')
+  assert.equal(svg.getAttribute('width'), '14')
+  assert.equal(svg.getAttribute('height'), '14')
+  assert.equal(svg.getAttribute('aria-hidden'), 'true')
+  const group = svg.children[0]
+  assert.equal(group.tag, 'g')
+  assert.equal(group.getAttribute('class'), 'uie-workspace-spinner-motion')
+  assert.equal(group.children.length, 2)
+  for (const [index, part] of ['track', 'arc'].entries()) {
+    const circle = group.children[index]
+    assert.equal(circle.tag, 'circle')
+    assert.equal(circle.getAttribute('class'), `uie-workspace-spinner-${part}`)
+    assert.equal(circle.getAttribute('cx'), '12')
+    assert.equal(circle.getAttribute('cy'), '12')
+    assert.equal(circle.getAttribute('r'), '9.5')
+  }
+  ui.status([['a', { completionUnread: true }]])
+  assert.equal(ui.marker().children[0], svg, 'status transitions reuse the owned SVG')
+  assert.match(rule(marker + '[data-status="waiting"]::before'), /var\(--dsw-alias-state-warn-primary\)/)
+  assert.doesNotMatch(css, /state-business-primary|state-warning-primary|#[0-9a-f]{3,8}\b/i)
   ui.dispose()
 })
 

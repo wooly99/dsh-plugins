@@ -1,6 +1,6 @@
 {
   "name": "@local/dsh-rightbar-middle-close",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "type": "module",
   "description": "Small UI enhancements: session workspace header and collapsed workspace status",

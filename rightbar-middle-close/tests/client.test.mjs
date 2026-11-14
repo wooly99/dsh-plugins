@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises'
 import { runInNewContext } from 'node:vm'
 
 const source = await readFile(new URL('../client.js', import.meta.url), 'utf8')
-const SLOT = 'conversation.session.header.actions'
+const SLOT = 'conversation.session.header.utilities'
 
 function browser({ slots = true } = {}) {
   const events = new Map(), rows = new Map(), dictionaries = {}, closes = [], cleanups = [], injections = []
@@ -63,7 +63,7 @@ test('workspace components do not inject the sidebar or register mouse listeners
   assert.deepEqual(ui.injections, [['slots', 'locale'], ['sessions', 'workspaces', 'uiSession', 'locale']])
   assert.equal(ui.events.size, 0)
   assert.deepEqual(ui.closes, [])
-  assert.equal(ui.rows.get(SLOT).spec.order, 0)
+  assert.equal(ui.rows.get(SLOT).spec.order, -1000)
   assert.equal(ui.rows.get(SLOT).spec.locale, 'ui-enhancements')
   ui.dispose()
   assert.equal(ui.events.size, 0)
