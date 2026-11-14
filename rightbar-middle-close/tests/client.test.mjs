@@ -6,23 +6,11 @@ import { runInNewContext } from 'node:vm'
 const source = await readFile(new URL('../client.js', import.meta.url), 'utf8')
 const SLOT = 'conversation.session.header.actions'
 
-function browser({ sidebar = true, slots = true } = {}) {
+function browser({ slots = true } = {}) {
   const events = new Map(), rows = new Map(), dictionaries = {}, closes = [], cleanups = [], injections = []
-  class Element {
-    constructor({ id, dockkit, chip = false, root = false, parent, marker } = {}) {
-      Object.assign(this, { chip, root, parent, marker })
-      this.dataset = { sidebarRightTab: id, dockkitTab: dockkit }
-    }
-    closest(selector) {
-      const match = selector === '[role="tab"]' ? this.chip : this.root
-      return match ? this : this.parent?.closest(selector) ?? null
-    }
-    matches() { return this.dataset.sidebarRightTab !== undefined }
-    querySelector() { return this.marker ?? null }
-  }
   const ctx = {
     effect(callback) { const cleanup = callback(); if (typeof cleanup === 'function') cleanups.push(cleanup) },
-    ...(sidebar ? { sidebarRight: { close: id => closes.push(id) } } : {}),
+    sidebarRight: { close: id => closes.push(id) },
     ...(slots ? {
       locale: { register(_namespace, values) { Object.assign(dictionaries, values.zh); return () => { for (const key of Object.keys(dictionaries)) delete dictionaries[key] } } },
       slots: {
@@ -40,7 +28,6 @@ function browser({ sidebar = true, slots = true } = {}) {
   }
   let definition
   runInNewContext(source, {
-    Element,
     console,
     document: {
       addEventListener(name, callback, capture) { assert.equal(capture, true); events.set(name, callback) },
@@ -59,78 +46,32 @@ function browser({ sidebar = true, slots = true } = {}) {
   definition.apply(ctx)
   const t = key => dictionaries[key]
   return {
-    Element, events, rows, closes, injections,
+    events, rows, closes, injections,
     render(sessionId, sessions, workspaces = []) {
       return rows.get(SLOT).component({ sessionId, t,
         useSessions: selector => selector({ byId: sessions }),
         useWorkspaces: selector => selector({ items: workspaces }),
       })
     },
-    gesture(name, target, button = 1) {
-      const prevented = []
-      events.get(name)({ target, button,
-        preventDefault: () => prevented.push('default'),
-        stopPropagation: () => prevented.push('propagation'),
-        stopImmediatePropagation: () => prevented.push('immediate'),
-      })
-      return prevented
-    },
     dispose() { for (const cleanup of cleanups.reverse()) cleanup() },
   }
 }
 const text = node => typeof node === 'string' ? node : (node?.children ?? []).map(text).join('')
 
-test('header and gesture components remain independent of workspace-status services', () => {
+test('workspace components do not inject the sidebar or register mouse listeners', () => {
   const ui = browser()
-  assert.deepEqual(ui.injections, [['sidebarRight'], ['slots', 'locale'], ['sessions', 'workspaces', 'uiSession', 'locale']])
-  assert.equal(ui.events.size, 2)
+  assert.deepEqual(ui.injections, [['slots', 'locale'], ['sessions', 'workspaces', 'uiSession', 'locale']])
+  assert.equal(ui.events.size, 0)
+  assert.deepEqual(ui.closes, [])
   assert.equal(ui.rows.get(SLOT).spec.order, 0)
   assert.equal(ui.rows.get(SLOT).spec.locale, 'ui-enhancements')
   ui.dispose()
   assert.equal(ui.events.size, 0)
   assert.equal(ui.rows.size, 0)
-  const headerOnly = browser({ sidebar: false })
-  assert.equal(headerOnly.events.size, 0)
-  assert.equal(headerOnly.rows.size, 1)
-  headerOnly.dispose()
-  const gestureOnly = browser({ slots: false })
-  assert.equal(gestureOnly.events.size, 2)
-  assert.equal(gestureOnly.rows.size, 0)
-  gestureOnly.dispose()
-})
-
-test('middle-click on nested chip content closes exactly once via the sidebar controller', () => {
-  const ui = browser(), root = new ui.Element({ root: true })
-  const chip = new ui.Element({ chip: true, id: 'file-1', parent: root })
-  const child = new ui.Element({ parent: chip })
-  assert.deepEqual(ui.gesture('mousedown', child), ['default'])
-  assert.deepEqual(ui.closes, [])
-  assert.deepEqual(ui.gesture('auxclick', child), ['default', 'propagation', 'immediate'])
-  assert.deepEqual(ui.closes, ['file-1'])
-  ui.dispose()
-})
-
-test('tab bodies, unrelated tabs, non-elements, and non-middle clicks are untouched', () => {
-  const ui = browser(), root = new ui.Element({ root: true })
-  const targets = [new ui.Element({ id: 'body', parent: root }), new ui.Element({ chip: true, id: 'outside' }), {}, null]
-  for (const target of targets) {
-    assert.deepEqual(ui.gesture('mousedown', target), [])
-    assert.deepEqual(ui.gesture('auxclick', target), [])
-  }
-  const chip = new ui.Element({ chip: true, id: 'file', parent: root })
-  for (const button of [0, 2]) assert.deepEqual(ui.gesture('auxclick', chip, button), [])
-  assert.deepEqual(ui.closes, [])
-  ui.dispose()
-})
-
-test('docked and floating chip identity variants use the same close path', () => {
-  const ui = browser(), root = new ui.Element({ root: true })
-  const marked = new ui.Element({ id: 'marked' })
-  for (const chip of [new ui.Element({ chip: true, dockkit: 'docked', parent: root }), new ui.Element({ chip: true, marker: marked, parent: root })]) {
-    ui.gesture('auxclick', chip)
-  }
-  assert.deepEqual(ui.closes, ['docked', 'marked'])
-  ui.dispose()
+  const noSlots = browser({ slots: false })
+  assert.equal(noSlots.events.size, 0)
+  assert.equal(noSlots.rows.size, 0)
+  noSlots.dispose()
 })
 
 test('workspace name and root belong to the rendered session, not another selected session or cwd', () => {
@@ -193,6 +134,7 @@ test('bundle keeps its legacy identity and declares the Desktop renderer depende
   const patch = await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8')
   assert.equal(pkg.name, '@local/dsh-rightbar-middle-close')
   assert.equal(pkg.dsh.client.platform, 'web')
+  assert.ok(!pkg.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-sidebar-right'))
   assert.ok(pkg.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-workspace'))
   assert.ok(pkg.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-conversation'))
   assert.match(patch, /name: '@local\/dsh-rightbar-middle-close'/)

@@ -1,14 +1,13 @@
 # DSH 插件（小毛毛熊）
 
-个人使用的 DSH 插件合集。两个插件源码在本仓库，另外两个从 npm 安装确切版本，不复制第三方源码。
+个人使用的 DSH 插件合集。两个插件源码在本仓库，另外一个从 npm 安装确切版本，不复制第三方源码。
 
 <!-- plugins:table:start -->
 | 插件 | 功能 | 版本 | 来源 |
 |---|---|---|---|
-| [界面小增强](rightbar-middle-close/README.md) | 侧栏标签中键关闭、会话工作区顶部栏标记、折叠工作区状态提示。 | 1.1.0 | 本仓库 |
+| [界面小增强](rightbar-middle-close/README.md) | 会话工作区顶部栏标记、折叠工作区状态提示。 | 1.1.0 | 本仓库 |
 | [归档清理](archive-cleanup/README.md) | 在设置里一键永久删除已归档会话，释放磁盘空间。 | 1.1.1 | 本仓库 |
 | [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.3 | npm |
-| [Git 可视化](https://github.com/cherrchen/dsh-plugin-git) | 在 DSH 中查看和操作 Git 仓库。 | 0.2.9 | npm |
 <!-- plugins:table:end -->
 
 ## 安装
@@ -23,7 +22,6 @@
 - 界面小增强：`git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/rightbar-middle-close`
 - 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/archive-cleanup`
 - Codex 订阅接入：`dsh-codex-subscription@3.2.3`
-- Git 可视化：`@dsh-electron/dsh-plugin-git@0.2.9`
 <!-- plugins:specs:end -->
 
 装完确认插件页里的开关是开的；宿主代码改动后需要重启 DSH（profile 开了 HMR 时会自行重组）。卸载同样在插件页操作。
@@ -34,7 +32,7 @@
 
 <!-- plugins:install:start -->
 ```bash
-dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/rightbar-middle-close" "git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/archive-cleanup" "dsh-codex-subscription@3.2.3" "@dsh-electron/dsh-plugin-git@0.2.9"
+dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/rightbar-middle-close" "git+https://github.com/wooly99/dsh-plugins.git#2b8b52d76f061cd314a02462bce41d18715425f7&path:/archive-cleanup" "dsh-codex-subscription@3.2.3"
 ```
 <!-- plugins:install:end -->
 
@@ -54,7 +52,7 @@ dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly9
 
 ## 需要注意
 
-- [界面小增强](rightbar-middle-close/README.md) 是原「侧栏标签中键关闭」插件的新显示名称，沿用原包标识。目前包含侧栏标签中键关闭、会话工作区顶部栏标记、折叠工作区状态提示三个组件，后续界面小功能统一在这里扩展。
+- [界面小增强](rightbar-middle-close/README.md) 是原「侧栏标签中键关闭」插件的新显示名称，沿用原包标识。目前包含会话工作区顶部栏标记、折叠工作区状态提示两个组件，后续界面小功能统一在这里扩展。
 
 - 不要在插件页贴仓库根 URL（原因见上）。
 - 外部插件在 spec 里用清单解析好的确切版本，不用 `@latest`：后者会被 pnpm 记成 `^x.y.z`，「换机装到哪个版本」取决于解析时机，而不是你验证过的那个。
@@ -72,7 +70,7 @@ dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly9
 | `node scripts/plugins.mjs index --refresh` | 先把 npm 条目的 `tag` 解析成确切版本写回清单，再生成（`--registry` 换源） |
 | `node scripts/plugins.mjs index --commit <sha>` | 换 pin，并把它写回 `plugins.json` |
 | `node scripts/plugins.mjs check` | 只校验生成物与清单一致，可放进 CI |
-| `node scripts/plugins.mjs specs` | 打印四条 spec（`--local` 打印 `link:` 形式） |
+| `node scripts/plugins.mjs specs` | 打印三条 spec（`--local` 打印 `link:` 形式） |
 | `node scripts/plugins.mjs install` | 用本地 checkout 安装；`--remote`、`--profile`、`--dsh`、`--dry-run` |
 
 `index --commit` 在插件目录有未提交改动时会拒绝，避免 pin 到一个装不出当前代码的提交（`--allow-dirty` 可跳过）。

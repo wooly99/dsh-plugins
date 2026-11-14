@@ -6,8 +6,8 @@
     "zh": "小毛毛熊的 DSH 插件"
   },
   "description": {
-    "en": "Personal DSH plugins: UI enhancements, archive cleanup, Codex subscription and a Git view.",
-    "zh": "个人 DSH 插件：界面小增强、归档清理、Codex 订阅接入与 Git 可视化。"
+    "en": "Personal DSH plugins: UI enhancements, archive cleanup and Codex subscription.",
+    "zh": "个人 DSH 插件：界面小增强、归档清理与 Codex 订阅接入。"
   },
   "metadata": {
     "categories": {
@@ -28,12 +28,6 @@
           "en": "Models",
           "zh": "模型"
         }
-      },
-      "git": {
-        "title": {
-          "en": "Git",
-          "zh": "Git"
-        }
       }
     }
   },
@@ -45,26 +39,19 @@
         "zh": "界面小增强"
       },
       "description": {
-        "en": "Middle-click sidebar tabs, session workspace in the header, and activity indicators for collapsed workspaces.",
-        "zh": "侧栏标签中键关闭、会话工作区顶部栏标记、折叠工作区状态提示。"
+        "en": "Session workspace in the header and activity indicators for collapsed workspaces.",
+        "zh": "会话工作区顶部栏标记、折叠工作区状态提示。"
       },
       "icon": "./icons/rightbar-middle-close.svg",
       "metadata": {
         "category": "ui",
         "keywords": [
-          "middle click",
-          "right sidebar",
-          "tab",
-          "close",
           "workspace",
           "header",
           "enhancements",
           "workspace status",
           "loading",
           "completion",
-          "中键",
-          "右栏",
-          "标签",
           "工作区",
           "顶部栏",
           "增强"
@@ -150,38 +137,6 @@
         {
           "version": "3.2.3",
           "publishTimestamp": 1793459990,
-          "source": {
-            "type": "npm"
-          }
-        }
-      ]
-    },
-    {
-      "name": "@dsh-electron/dsh-plugin-git",
-      "title": {
-        "en": "Git view",
-        "zh": "Git 可视化"
-      },
-      "description": {
-        "en": "View and operate Git repositories inside DSH.",
-        "zh": "在 DSH 中查看和操作 Git 仓库。"
-      },
-      "homepage": "https://github.com/cherrchen/dsh-plugin-git",
-      "metadata": {
-        "category": "git",
-        "keywords": [
-          "git",
-          "repository",
-          "diff",
-          "commit",
-          "仓库",
-          "提交"
-        ]
-      },
-      "versions": [
-        {
-          "version": "0.2.9",
-          "publishTimestamp": 1793372166,
           "source": {
             "type": "npm"
           }

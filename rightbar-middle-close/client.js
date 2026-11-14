@@ -7,50 +7,7 @@ window.__ModuleLoader__.load({
     const NS = 'ui-enhancements'
     const HEADER_SLOT = 'conversation.session.header.actions'
 
-    // Component 1: middle-click close. Only ARIA tab chips within a right sidebar
-    // qualify; tab bodies carry the same data marker and must never qualify.
-    const TAB_CHIP = '[role="tab"]'
-    const TAB_MARKER = '[data-sidebar-right-tab]'
-    const SESSION_ROOT = '[data-sidebar-right-session]'
-
-    function tabIdAt(target) {
-      if (!(target instanceof Element)) return undefined
-      const chip = target.closest(TAB_CHIP)
-      if (chip === null || chip.closest(SESSION_ROOT) === null) return undefined
-      const marker = chip.matches(TAB_MARKER) ? chip : chip.querySelector(TAB_MARKER)
-      const id = chip.dataset.sidebarRightTab ?? chip.dataset.dockkitTab ?? marker?.dataset.sidebarRightTab
-      return typeof id === 'string' && id !== '' ? id : undefined
-    }
-
-    function installMiddleClick(ctx) {
-      function onMouseDown(event) {
-        if (event.button === 1 && tabIdAt(event.target) !== undefined) event.preventDefault()
-      }
-      function onAuxClick(event) {
-        if (event.button !== 1) return
-        const tabId = tabIdAt(event.target)
-        if (tabId === undefined) return
-        event.preventDefault()
-        event.stopPropagation()
-        event.stopImmediatePropagation()
-        try {
-          // Same controller as ×: preserves close handlers and last-tab behavior.
-          ctx.sidebarRight.close(tabId)
-        } catch (error) {
-          console.warn('[ui-enhancements] could not close the tab:', error)
-        }
-      }
-      ctx.effect(() => {
-        document.addEventListener('mousedown', onMouseDown, true)
-        document.addEventListener('auxclick', onAuxClick, true)
-        return () => {
-          document.removeEventListener('mousedown', onMouseDown, true)
-          document.removeEventListener('auxclick', onAuxClick, true)
-        }
-      }, 'ui-enhancements: middle-button tab close')
-    }
-
-    // Component 2: a passive header label. Use the slot's session, not a global
+    // Component 1: a passive header label. Use the slot's session, not a global
     // selection or the agent process cwd (which can refer to a different session).
     function WorkspaceHeader({ sessionId, useSessions, useWorkspaces, t }) {
       const cwd = useSessions(state => state.byId[sessionId]?.cwd)
@@ -93,7 +50,7 @@ window.__ModuleLoader__.load({
       }, WorkspaceHeader))
     }
 
-    // Component 3: collapsed workspace summaries. Workspace headers currently
+    // Component 2: collapsed workspace summaries. Workspace headers currently
     // have no extension slot. Only append our own leaf to existing row markers;
     // never replace React-owned rows, controls, classes, or expansion state.
     const WORKSPACE_ROW = '[role="treeitem"][data-row-key^="workspace:"][aria-expanded]'
@@ -223,7 +180,6 @@ window.__ModuleLoader__.load({
     return {
       apply(ctx) {
         // Each component has its own dependency scope and unload lifecycle.
-        ctx.inject(['sidebarRight'], installMiddleClick)
         ctx.inject(['slots', 'locale'], installWorkspaceHeader)
         ctx.inject(['sessions', 'workspaces', 'uiSession', 'locale'], installCollapsedWorkspaceStatus)
       },

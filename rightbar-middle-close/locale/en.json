@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "UI Enhancements",
-    "description": "Three small components: middle-click sidebar tabs, session workspace in the header, and activity indicators for collapsed workspaces."
+    "description": "Two small components: session workspace in the header and activity indicators for collapsed workspaces."
   }
 }

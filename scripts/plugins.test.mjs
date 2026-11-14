@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import {
   gitUrl,
+  loadManifest,
   normalizeManifest,
   renderIndex,
   renderInstall,
@@ -64,6 +65,17 @@ const README = [
   '<!-- plugins:install:end -->',
   'tail'
 ].join('\n');
+
+test('repository catalog contains only the three retained plugins', async () => {
+  const manifest = await loadManifest();
+  assert.deepEqual(manifest.plugins.map(plugin => plugin.name), [
+    '@local/dsh-rightbar-middle-close',
+    '@local/dsh-archive-cleanup',
+    'dsh-codex-subscription'
+  ]);
+  assert.deepEqual(Object.keys(manifest.market.categories), ['ui', 'session', 'model']);
+  assert.equal(specsOf(manifest, context()).length, 3);
+});
 
 test('repo entries take their identity from the plugin package.json', () => {
   const manifest = normalizeManifest(raw(), readPackage);
