@@ -59,12 +59,12 @@
       },
       "versions": [
         {
-          "version": "1.1.0",
-          "publishTimestamp": 1793700939,
+          "version": "1.2.0",
+          "publishTimestamp": 1794678432,
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "2b8b52d76f061cd314a02462bce41d18715425f7",
+            "commit": "02e51440bfad244219647055f5fe8194a921cb35",
             "path": "rightbar-middle-close"
           },
           "engines": {
@@ -103,7 +103,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "2b8b52d76f061cd314a02462bce41d18715425f7",
+            "commit": "02e51440bfad244219647055f5fe8194a921cb35",
             "path": "archive-cleanup"
           },
           "engines": {
