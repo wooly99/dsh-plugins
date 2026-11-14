@@ -5,7 +5,7 @@
 <!-- plugins:table:start -->
 | 插件 | 功能 | 版本 | 来源 |
 |---|---|---|---|
-| [界面小增强](rightbar-middle-close/README.md) | 会话工作区顶部栏标记、折叠工作区状态提示。 | 1.2.0 | 本仓库 |
+| [界面小增强](ui-enhancements/README.md) | 会话工作区顶部栏标记、折叠工作区状态提示。 | 1.2.1 | 本仓库 |
 | [归档清理](archive-cleanup/README.md) | 在设置里一键永久删除已归档会话，释放磁盘空间。 | 1.1.1 | 本仓库 |
 | [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.3 | npm |
 <!-- plugins:table:end -->
@@ -19,8 +19,8 @@
 侧栏「插件」→「添加插件」，一行一条粘进去：
 
 <!-- plugins:specs:start -->
-- 界面小增强：`git+https://github.com/wooly99/dsh-plugins.git#02e51440bfad244219647055f5fe8194a921cb35&path:/rightbar-middle-close`
-- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#02e51440bfad244219647055f5fe8194a921cb35&path:/archive-cleanup`
+- 界面小增强：`git+https://github.com/wooly99/dsh-plugins.git#e9fe512e204fa0fb806c36c9e4885baf523d1068&path:/ui-enhancements`
+- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#e9fe512e204fa0fb806c36c9e4885baf523d1068&path:/archive-cleanup`
 - Codex 订阅接入：`dsh-codex-subscription@3.2.3`
 <!-- plugins:specs:end -->
 
@@ -32,7 +32,7 @@
 
 <!-- plugins:install:start -->
 ```bash
-dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#02e51440bfad244219647055f5fe8194a921cb35&path:/rightbar-middle-close" "git+https://github.com/wooly99/dsh-plugins.git#02e51440bfad244219647055f5fe8194a921cb35&path:/archive-cleanup" "dsh-codex-subscription@3.2.3"
+dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#e9fe512e204fa0fb806c36c9e4885baf523d1068&path:/ui-enhancements" "git+https://github.com/wooly99/dsh-plugins.git#e9fe512e204fa0fb806c36c9e4885baf523d1068&path:/archive-cleanup" "dsh-codex-subscription@3.2.3"
 ```
 <!-- plugins:install:end -->
 

@@ -33,7 +33,7 @@
   },
   "plugins": [
     {
-      "name": "@local/dsh-rightbar-middle-close",
+      "name": "@local/dsh-ui-enhancements",
       "title": {
         "en": "UI Enhancements",
         "zh": "界面小增强"
@@ -42,7 +42,7 @@
         "en": "Session workspace in the header and activity indicators for collapsed workspaces.",
         "zh": "会话工作区顶部栏标记、折叠工作区状态提示。"
       },
-      "icon": "./icons/rightbar-middle-close.svg",
+      "icon": "./icons/ui-enhancements.svg",
       "metadata": {
         "category": "ui",
         "keywords": [
@@ -59,13 +59,13 @@
       },
       "versions": [
         {
-          "version": "1.2.0",
-          "publishTimestamp": 1794678432,
+          "version": "1.2.1",
+          "publishTimestamp": 1794681066,
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "02e51440bfad244219647055f5fe8194a921cb35",
-            "path": "rightbar-middle-close"
+            "commit": "e9fe512e204fa0fb806c36c9e4885baf523d1068",
+            "path": "ui-enhancements"
           },
           "engines": {
             "dsh": ">=0.2.1-rc.5 <0.3.0"
@@ -103,7 +103,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "02e51440bfad244219647055f5fe8194a921cb35",
+            "commit": "e9fe512e204fa0fb806c36c9e4885baf523d1068",
             "path": "archive-cleanup"
           },
           "engines": {
