@@ -12,8 +12,8 @@
       "zh": "小毛毛熊的 DSH 插件"
     },
     "description": {
-      "en": "Personal DSH plugins: UI enhancements, archive cleanup and Codex subscription.",
-      "zh": "个人 DSH 插件：界面小增强、归档清理与 Codex 订阅接入。"
+      "en": "Personal DSH plugins: UI enhancements, archive cleanup, VS Code launch fix and Codex subscription.",
+      "zh": "个人 DSH 插件：界面小增强、归档清理、VS Code 打开修复与 Codex 订阅接入。"
     },
     "categories": {
       "ui": {
@@ -81,6 +81,27 @@
         "归档",
         "清理",
         "会话"
+      ]
+    },
+    {
+      "source": "repo",
+      "dir": "open-in-app-fix",
+      "category": "ui",
+      "title": {
+        "en": "VS Code launch fix",
+        "zh": "VS Code 打开修复"
+      },
+      "summary": {
+        "en": "Fix opening workspace folders in VS Code / Insiders from Windows DSH.",
+        "zh": "修复 Windows DSH 打开 VS Code / Insiders 工作区文件夹的问题。"
+      },
+      "keywords": [
+        "vscode",
+        "insiders",
+        "windows",
+        "open in app",
+        "打开",
+        "修复"
       ]
     },
     {

@@ -17,7 +17,7 @@ test('independent dependency-free Host bundle with a single unique row', async (
   assert.equal(pkg.peerDependencies, undefined)
   assert.deepEqual(Object.keys(pkg.scripts), ['test'])
   assert.equal(pkg.engines.dsh, '>=0.2.1-rc.5 <0.3.0')
-  const patch = await text('cordis.patch.yml')
+  const patch = (await text('cordis.patch.yml')).replaceAll('\r\n', '\n')
   assert.equal(patch, "- insert:\n    - id: open-in-app-fix\n      name: '@local/dsh-open-in-app-fix'\n")
 })
 

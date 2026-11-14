@@ -66,15 +66,16 @@ const README = [
   'tail'
 ].join('\n');
 
-test('repository catalog contains only the three retained plugins', async () => {
+test('repository catalog includes all four published plugins', async () => {
   const manifest = await loadManifest();
   assert.deepEqual(manifest.plugins.map(plugin => plugin.name), [
     '@local/dsh-ui-enhancements',
     '@local/dsh-archive-cleanup',
+    '@local/dsh-open-in-app-fix',
     'dsh-codex-subscription'
   ]);
   assert.deepEqual(Object.keys(manifest.market.categories), ['ui', 'session', 'model']);
-  assert.equal(specsOf(manifest, context()).length, 3);
+  assert.equal(specsOf(manifest, context()).length, 4);
 });
 
 test('repo entries take their identity from the plugin package.json', () => {
