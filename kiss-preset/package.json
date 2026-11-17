@@ -1,0 +1,33 @@
+{
+  "name": "@local/dsh-kiss-preset",
+  "version": "1.0.3",
+  "private": true,
+  "type": "module",
+  "description": "KISS模式：少约束、少干预，极简提速，让模型自主思考、直接解决问题。",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wooly99/dsh-plugins.git",
+    "directory": "kiss-preset"
+  },
+  "engines": {
+    "dsh": "0.2.2-rc.3"
+  },
+  "exports": {
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE",
+    "verify.cjs"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
