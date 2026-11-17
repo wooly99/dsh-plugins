@@ -99,7 +99,7 @@ export function renderIndex(manifest, { commit, times }) {
     description: manifest.market.description,
     metadata: { categories: manifest.market.categories },
     plugins: manifest.plugins.map((plugin) => {
-      const engines = plugin.source === 'repo' ? manifest.engines : plugin.engines;
+      const engines = plugin.engines ?? (plugin.source === 'repo' ? manifest.engines : undefined);
       const version = {
         version: plugin.version,
         publishTimestamp: plugin.source === 'repo' ? times[plugin.dir] : plugin.publishTimestamp,

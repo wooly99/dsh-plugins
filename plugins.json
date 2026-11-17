@@ -2,7 +2,7 @@
   "$comment": "Single source of truth for this repo's plugin list. Run `node scripts/plugins.mjs index` after editing; never hand-edit market/index.json or the generated README blocks.",
   "profile": "desktop",
   "repository": "https://github.com/wooly99/dsh-plugins",
-  "commit": "445dcfcd4744b774940dd5ccd7d121ca200ae3b4",
+  "commit": "848516fa4068f79a87bfb526aad01387455e9f0c",
   "engines": {
     "dsh": ">=0.2.1-rc.5 <0.3.0"
   },
@@ -12,8 +12,8 @@
       "zh": "小毛毛熊的 DSH 插件"
     },
     "description": {
-      "en": "Personal DSH plugins: UI enhancements, archive cleanup, VS Code launch fix and Codex subscription.",
-      "zh": "个人 DSH 插件：界面小增强、归档清理、VS Code 打开修复与 Codex 订阅接入。"
+      "en": "Personal DSH plugins: UI enhancements, archive cleanup, VS Code launch fix, KISS preset and Codex subscription.",
+      "zh": "个人 DSH 插件：界面小增强、归档清理、VS Code 打开修复、KISS模式与 Codex 订阅接入。"
     },
     "categories": {
       "ui": {
@@ -26,6 +26,12 @@
         "title": {
           "en": "Sessions",
           "zh": "会话"
+        }
+      },
+      "preset": {
+        "title": {
+          "en": "Agent presets",
+          "zh": "预设模式"
         }
       },
       "model": {
@@ -102,6 +108,31 @@
         "open in app",
         "打开",
         "修复"
+      ]
+    },
+    {
+      "source": "repo",
+      "dir": "kiss-preset",
+      "category": "preset",
+      "engines": {
+        "dsh": "0.2.2-rc.3"
+      },
+      "title": {
+        "en": "KISS模式",
+        "zh": "KISS模式"
+      },
+      "summary": {
+        "en": "Fewer workflow constraints and less prompt interference; practical tools and skills without task orchestration.",
+        "zh": "少约束、少干预，极简提速；保留实用工具与 Skills，让模型自主解决问题。"
+      },
+      "keywords": [
+        "kiss",
+        "preset",
+        "minimal",
+        "skills",
+        "预设",
+        "极简",
+        "提速"
       ]
     },
     {

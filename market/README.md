@@ -15,7 +15,7 @@ https://raw.githubusercontent.com/wooly99/dsh-plugins/main/market/index.json
 - 本仓库插件按 `source.type: git` 安装：`url` + `commit` + `path`，内容锁在提交上，不会读到本地改动。
 - npm 插件按 `source.type: npm` 与确切的 `version` 安装。
 - `publishTimestamp` 对本仓库插件取自该目录最后一次提交时间；npm 插件取自清单里由 `index --refresh` 记录的发布时间，所以离线生成依然可复现。
-- `engines.dsh` 只在本仓库插件（顶层 `engines`）或 npm 条目自己声明时写入；超出范围的版本在发现页显示为不兼容，可以更新范围或加版本豁免。
+- `engines.dsh` 优先使用插件条目自己的 `engines`；本仓库插件未单独声明时回退到清单顶层范围。KISS模式限定为已验证的 `0.2.2-rc.3`；超出范围的版本在发现页显示为不兼容。
 
 ## 校验
 

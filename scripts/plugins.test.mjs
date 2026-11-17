@@ -66,16 +66,20 @@ const README = [
   'tail'
 ].join('\n');
 
-test('repository catalog includes all four published plugins', async () => {
+test('repository catalog includes all five published plugins', async () => {
   const manifest = await loadManifest();
   assert.deepEqual(manifest.plugins.map(plugin => plugin.name), [
     '@local/dsh-ui-enhancements',
     '@local/dsh-archive-cleanup',
     '@local/dsh-open-in-app-fix',
+    '@local/dsh-kiss-preset',
     'dsh-codex-subscription'
   ]);
-  assert.deepEqual(Object.keys(manifest.market.categories), ['ui', 'session', 'model']);
-  assert.equal(specsOf(manifest, context()).length, 4);
+  assert.deepEqual(Object.keys(manifest.market.categories), ['ui', 'session', 'preset', 'model']);
+  assert.equal(specsOf(manifest, context()).length, 5);
+  const kiss = manifest.plugins.find(plugin => plugin.name === '@local/dsh-kiss-preset');
+  assert.equal(kiss.dir, 'kiss-preset');
+  assert.deepEqual(kiss.engines, { dsh: '0.2.2-rc.3' });
 });
 
 test('repo entries take their identity from the plugin package.json', () => {
@@ -171,6 +175,14 @@ test('the market index documents both sources and only repo engines', () => {
   assert.equal(index.plugins[0].icon, './icons/one.svg');
   assert.equal(index.plugins[1].icon, undefined);
   assert.equal(index.plugins[0].name, '@local/one');
+});
+
+test('a repo plugin can narrow the catalog-wide host compatibility', () => {
+  const value = raw();
+  value.plugins[0].engines = { dsh: '0.2.2-rc.3' };
+  const manifest = normalizeManifest(value, readPackage);
+  const index = renderIndex(manifest, { commit: COMMIT, times: { one: 42 } });
+  assert.deepEqual(index.plugins[0].versions[0].engines, { dsh: '0.2.2-rc.3' });
 });
 
 test('the table and specs use the Chinese labels when present', () => {
