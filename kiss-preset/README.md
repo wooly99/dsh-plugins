@@ -6,7 +6,7 @@
 
 ## 与官方 Standard 对比
 
-以下对比基于 DSH **0.2.2-rc.3**。保留项沿用官方参数，只删去不需要的插件，不增加人设或流程指令。
+以下对比基于 DSH **0.2.2-rc.3**。保留项沿用官方参数，不增加人设或流程指令。两处宿主注入只在 KISS 的会话范围内调整。
 
 | 能力 | 官方 Standard | KISS模式 |
 |---|---|---|
@@ -16,7 +16,8 @@
 | PowerShell / Bash | Windows 用 PowerShell，其他平台用 Bash | 相同 |
 | 后台任务与输出管理 | 保留 | 保留 |
 | 全局和项目规则自动加载 | 保留 | 保留 |
-| Skills 自动发现、目录和按需加载 | 保留 | 保留 |
+| Skills 自动发现、目录和按需加载 | 保留 | 保留；内置 Office Skills 仅手动调用 |
+| Web GUI 地址和相关提示 | 注入 | 桌面版不注入，Web 版不变 |
 | 历史压缩、`/compact`、大输出裁剪 | 保留 | 保留 |
 | 结构化提问 | 保留 | 保留 |
 | 网页搜索、网页抓取 | 保留 | 保留 |
@@ -30,7 +31,8 @@
 | Plan 模式审批流程 | 可用 | 移除 |
 | 定时任务工具 | 可用 | 移除 |
 | 时间自动注入 | 可用 | 移除 |
-| Office 专用工具 | 可用 | 移除 |
+| Office 文件编辑 | 可用 | 保留，可用 Python 库编辑 `.docx`、`.xlsx`、`.pptx` |
+| Office 专用渲染、转换、公式重算 | 按需启用 | 不挂载 |
 | 插件市场工具 | 默认关闭 | 不挂载 |
 
 官方人设原文保持不变：
@@ -39,7 +41,9 @@
 You are a coding agent powered by the {{model}} model.
 ```
 
-保留必要工具说明，不使用 `complete: true` 全量清除系统提示词。全局、项目规则与已加载 Skills 仍提供各自指导；原有权限、安全策略和共享宿主服务不变。
+桌面版只省略 `app:web-surface`，不会关闭本地服务。工作目录、权限规则和 DSH 源码位置仍照常提供。
+
+KISS 不把四个内置 Office Skills 放进模型目录。需要官方编辑指引时，在消息里加 `/office-docx`、`/office-xlsx` 或 `/office-pptx`。普通编辑不依赖专用工具；需要渲染、格式转换或公式重算时，用 Standard 模式。
 
 ## 安装与使用
 
@@ -51,10 +55,10 @@ You are a coding agent powered by the {{model}} model.
 
 ## 验证
 
-`verify.cjs` 使用当前 DSH 安装中的 YAML 解析器，将 14 个保留的顶层插件条目与官方 Standard 逐项比较，检查人设不变、9 个移除条目、平台 Shell 条件和插件管理条件。应通过 DSH 提供的 Electron/Node 运行时运行，并保留 `DSH_INSTALL_DIR`；它不请求模型、不修改用户配置。
+`verify.cjs` 对照当前 DSH 的 Standard 预设检查保留项，并使用 DSH 的提示词与 Skills 注册表验证 Desktop/Web 差异、Office 手动加载及作用域隔离。通过 DSH 提供的 Electron/Node 运行时运行，并保留 `DSH_INSTALL_DIR`；不请求模型，也不修改用户配置。
 
 ## English
 
 A subtractive Standard preset for DSH 0.2.2-rc.3: fewer workflow constraints, less prompt interference and less orchestration overhead. Keep the official persona, practical tools, skills and workspace rules. Choose **KISS模式** in a new session. Install from the repository's commit-pinned remote subdirectory spec, not a local link.
 
-No custom runtime code, dependencies or install scripts. Existing sessions, the default preset, permissions and MCP connections are unchanged. The optional detail image is omitted; the K icon is original SVG artwork.
+On Desktop, KISS omits the Web GUI address and related prompt guidance. Bundled Office skills are available through explicit invocation but are not advertised to the model. The default preset, permissions and MCP connections are unchanged.

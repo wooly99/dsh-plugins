@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "KISS模式",
-    "description": "Keep It Simple. Designed for speed through simplicity: fewer workflow constraints, less prompt interference and less orchestration overhead, leaving the model free to reason and solve problems directly. Removes subagents, Todo, goals, Plan mode and workflows while retaining the official persona, practical tools, skills and workspace rules. Select KISS模式 in a new session; the default preset and MCP connections are unchanged."
+    "description": "Keep It Simple. Designed for speed through simplicity: fewer workflow constraints, less prompt interference and less orchestration overhead, leaving the model free to reason and solve problems directly. Removes subagents, Todo, goals, Plan mode and workflows while retaining the official persona, practical tools, skills and workspace rules. On Desktop, the Web GUI address is omitted. Built-in Office skills stay out of the model catalog but can still be invoked explicitly. Select KISS模式 in a new session; the default preset and MCP connections are unchanged."
   }
 }

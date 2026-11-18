@@ -69,3 +69,8 @@
           - id: tool-plugin-manager
             name: '@deepseek-ai/dsh-plugin-manager/tools'
             disabled: !!js "!ctx.get('profileContext')"
+          - id: kiss-context
+            name: '@local/dsh-kiss-preset/context'
+            inject: [profileContext]
+            config:
+              hideWebSurface: !!js "ctx.profileContext.name === 'desktop'"

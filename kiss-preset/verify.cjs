@@ -29,9 +29,13 @@ assert.equal(row.config.id, 'kiss');
 assert.equal(row.config.name, 'KISS模式');
 const removed = ['time-context', 'tool-schedule', 'command-goal', 'tool-goal', 'planning', 'delegation', 'tool-todo', 'tool-office', 'tool-plugin-market'];
 const expected = standard.config.plugins.filter(plugin => !removed.includes(plugin.id));
-assert.deepEqual(row.config.plugins, expected, 'Retained rows, persona, expressions and settings must exactly match Standard');
-assert.equal(row.config.plugins.length, 14);
 const plugins = row.config.plugins;
+const contextRow = plugins.at(-1);
+assert.deepEqual(plugins.slice(0, -1), expected, 'Retained rows, persona, expressions and settings must exactly match Standard');
+assert.equal(contextRow.id, 'kiss-context');
+const hideWebSurface = new Function('ctx', `return (${contextRow.config.hideWebSurface.$js});`);
+assert.equal(hideWebSurface({ profileContext: { name: 'desktop' } }), true);
+assert.equal(hideWebSurface({ profileContext: { name: 'web' } }), false);
 assert.deepEqual(plugins.find(p => p.id === 'persona').config, {
   prefix: 'You are a coding agent powered by the {{model}} model.',
 });
@@ -57,4 +61,60 @@ for (const locale of ['en', 'zh']) {
 }
 assert.ok(fs.statSync(path.join(__dirname, 'icon.svg')).size < 256 * 1024);
 assert.deepEqual(fs.readFileSync(standardPath), standardBytes, 'Standard must remain untouched');
-console.log(JSON.stringify({ result: 'PASS', hostVersion: manifest.engines.dsh, retained: plugins.map(p => p.id), removed, persona: plugins[0].config.prefix, extraPersonaText: false, defaultPresetModified: false }, null, 2));
+async function verifyContext() {
+  const { Context } = hostRequire('@deepseek-ai/cordis');
+  const { createScope } = hostRequire('@deepseek-ai/dsh-scope');
+  const { SystemPrompt, renderContextSections, renderPrompt } = hostRequire('@deepseek-ai/dsh-system-prompt');
+  const { SkillRegistry, isModelInvocable } = hostRequire('@deepseek-ai/dsh-skill');
+  assert.equal(require.resolve(contextRow.name), path.join(__dirname, 'context.js'));
+  assert.ok(manifest.files.includes('context.js'));
+  const contextPlugin = require(contextRow.name);
+  const ctx = new Context();
+  await ctx.plugin(SystemPrompt).await();
+  await ctx.plugin(SkillRegistry).await();
+  await ctx.plugin(hostRequire('@deepseek-ai/dsh-skill-office')).await();
+  const systemPrompt = ctx.get('systemPrompt');
+  const skills = ctx.get('skills');
+  systemPrompt.section({ name: 'app:web-surface', order: 10, text: 'Web GUI guidance' });
+  systemPrompt.context({ name: 'app:web-surface', order: 10, text: 'Web GUI URL' });
+  systemPrompt.context({ name: 'harness:source', order: 0, text: 'Harness source' });
+  skills.register({ name: 'other-skill', description: 'Unrelated skill', content: 'Unchanged', source: 'runtime' });
+
+  const kissDesktop = {};
+  const kissWeb = {};
+  const desktopAgent = {};
+  const desktopMount = createScope(ctx, kissDesktop);
+  const webMount = createScope(ctx, kissWeb);
+  const agent = createScope(ctx, desktopAgent, { parent: kissDesktop });
+  try {
+    await desktopMount.ctx.plugin(contextPlugin, { hideWebSurface: true }).await();
+    await webMount.ctx.plugin(contextPlugin, { hideWebSurface: false }).await();
+    for (const [scope, hideUrl, hideOffice] of [[{}, false, false], [desktopAgent, true, true], [kissWeb, false, true]]) {
+      const assembly = await systemPrompt.assemble({ scope });
+      assert.equal(renderPrompt(assembly).includes('Web GUI guidance'), !hideUrl);
+      const snapshot = renderContextSections(systemPrompt.refreshContext(assembly, { scope }));
+      assert.deepEqual(snapshot.map(section => section.name), hideUrl ? ['harness:source'] : ['harness:source', 'app:web-surface']);
+      const officeNames = ['office', 'office-docx', 'office-pptx', 'office-xlsx'];
+      const lookup = { cwd: __dirname, scope };
+      assert.deepEqual((await skills.list(lookup)).filter(isModelInvocable).map(skill => skill.name),
+        hideOffice ? ['other-skill'] : [...officeNames, 'other-skill']);
+      for (const name of officeNames) {
+        const original = await skills.get(name, { cwd: __dirname });
+        const loaded = await skills.get(name, lookup);
+        assert.ok(original.content.length > 0);
+        assert.deepEqual(loaded, { ...original, invocation: { modelInvocable: !hideOffice, userInvocable: true } });
+      }
+    }
+  } finally {
+    await agent.dispose();
+    await webMount.dispose();
+    await desktopMount.dispose();
+  }
+}
+
+verifyContext().then(() => {
+  console.log(`PASS: DSH ${manifest.engines.dsh}; Standard parity, Desktop-only Web context suppression, and user-invocable Office skills`);
+}).catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});

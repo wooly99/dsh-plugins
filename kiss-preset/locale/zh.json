@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "KISS模式",
-    "description": "Keep It Simple. 少约束、少干预，极简提速。通过移除子智能体、Todo、目标、Plan 和 Workflow，减少不必要的流程约束、提示词干预与编排开销，让模型自主思考、直接解决问题。保留官方人设、实用工具、Skills 与规则加载。在新会话中选择「KISS模式」使用，不改变原有默认模式和 MCP 连接。"
+    "description": "Keep It Simple. 少约束、少干预，极简提速。通过移除子智能体、Todo、目标、Plan 和 Workflow，减少不必要的流程约束、提示词干预与编排开销，让模型自主思考、直接解决问题。保留官方人设、实用工具、Skills 与规则加载。桌面版不注入 Web GUI 地址；内置 Office Skills 默认不进目录，仍可手动调用。在新会话中选择「KISS模式」使用，不改变原有默认模式和 MCP 连接。"
   }
 }
