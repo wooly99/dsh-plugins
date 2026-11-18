@@ -70,7 +70,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "848516fa4068f79a87bfb526aad01387455e9f0c",
+            "commit": "b0f1a6552431e2f2cfe152e0260b65c432784fe9",
             "path": "ui-enhancements"
           },
           "engines": {
@@ -109,7 +109,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "848516fa4068f79a87bfb526aad01387455e9f0c",
+            "commit": "b0f1a6552431e2f2cfe152e0260b65c432784fe9",
             "path": "archive-cleanup"
           },
           "engines": {
@@ -147,7 +147,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "848516fa4068f79a87bfb526aad01387455e9f0c",
+            "commit": "b0f1a6552431e2f2cfe152e0260b65c432784fe9",
             "path": "open-in-app-fix"
           },
           "engines": {
@@ -181,12 +181,12 @@
       },
       "versions": [
         {
-          "version": "1.0.3",
-          "publishTimestamp": 1794906558,
+          "version": "1.0.4",
+          "publishTimestamp": 1794996170,
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "848516fa4068f79a87bfb526aad01387455e9f0c",
+            "commit": "b0f1a6552431e2f2cfe152e0260b65c432784fe9",
             "path": "kiss-preset"
           },
           "engines": {
