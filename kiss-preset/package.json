@@ -1,6 +1,6 @@
 {
   "name": "@local/dsh-kiss-preset",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "private": true,
   "type": "module",
   "description": "KISS模式：少约束、少干预，极简提速，让模型自主思考、直接解决问题。",
@@ -9,9 +9,6 @@
     "type": "git",
     "url": "git+https://github.com/wooly99/dsh-plugins.git",
     "directory": "kiss-preset"
-  },
-  "engines": {
-    "dsh": "0.2.2-rc.3"
   },
   "exports": {
     "./context": "./context.js",

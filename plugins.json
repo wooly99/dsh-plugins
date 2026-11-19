@@ -114,9 +114,7 @@
       "source": "repo",
       "dir": "kiss-preset",
       "category": "preset",
-      "engines": {
-        "dsh": "0.2.2-rc.3"
-      },
+      "engines": {},
       "title": {
         "en": "KISS模式",
         "zh": "KISS模式"

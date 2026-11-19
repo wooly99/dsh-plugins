@@ -51,7 +51,8 @@ for (const profile of [undefined, { name: 'desktop' }]) {
   assert.equal(new Function('ctx', `return (${manager.disabled.$js});`)({ get: () => profile }), !profile);
 }
 const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
-assert.equal(manifest.engines.dsh, JSON.parse(fs.readFileSync(path.join(install, 'package.json'), 'utf8')).version);
+const runtimeVersion = hostRequire('./package.json').version;
+assert.equal(manifest.engines?.dsh, undefined, 'Do not block KISS on DSH version alone');
 assert.ok(!manifest.dependencies && !manifest.scripts, 'No dependencies or installation scripts');
 assert.equal(manifest.dsh.bundle.patch, './cordis.patch.yml');
 for (const locale of ['en', 'zh']) {
@@ -113,7 +114,7 @@ async function verifyContext() {
 }
 
 verifyContext().then(() => {
-  console.log(`PASS: DSH ${manifest.engines.dsh}; Standard parity, Desktop-only Web context suppression, and user-invocable Office skills`);
+  console.log(`PASS: DSH ${runtimeVersion}; Standard parity, Desktop-only Web context suppression, and user-invocable Office skills`);
 }).catch(error => {
   console.error(error);
   process.exitCode = 1;

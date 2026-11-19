@@ -2,11 +2,11 @@
 
 **少约束、少干预，极简提速。**
 
-以 DSH 0.2.2-rc.3 官方 Standard 为底，移除不必要的流程约束与任务编排，减少提示词干预和管理开销，让模型自主思考、直接解决问题。保留实用工具与 Skills，不额外规定解题套路。
+以 DSH 0.2.2-rc.5 官方 Standard 为底，移除不必要的流程约束与任务编排，减少提示词干预和管理开销，让模型自主思考、直接解决问题。保留实用工具与 Skills，不额外规定解题套路。
 
 ## 与官方 Standard 对比
 
-以下对比基于 DSH **0.2.2-rc.3**。保留项沿用官方参数，不增加人设或流程指令。两处宿主注入只在 KISS 的会话范围内调整。
+以下对比以 DSH **0.2.2-rc.5** 为验证基线，不是安装限制。升级 DSH 不会因版本号变化而停用 KISS；接口实际变化时再适配。保留项沿用官方参数，不增加人设或流程指令。两处宿主注入只在 KISS 的会话范围内调整。
 
 | 能力 | 官方 Standard | KISS模式 |
 |---|---|---|
@@ -47,7 +47,7 @@ KISS 不把四个内置 Office Skills 放进模型目录。需要官方编辑指
 
 ## 安装与使用
 
-从仓库根目录 README 的 **KISS模式** 安装地址安装。地址固定远程提交和 `kiss-preset` 子目录，不依赖本地源码链接。已有本地安装时，先在插件管理中卸载同名包，再用远程地址安装。
+已发布版本使用仓库根目录 README 的 **KISS模式** 安装地址。测试当前源码时，在「插件」→「添加插件」中选择本地 `kiss-preset` 目录。替换版本或安装来源时，先卸载同名包。
 
 新建会话，在模式选择器中选择 **KISS模式**。不替换 Standard，不修改默认模式，不切换已有会话。
 
@@ -59,6 +59,6 @@ KISS 不把四个内置 Office Skills 放进模型目录。需要官方编辑指
 
 ## English
 
-A subtractive Standard preset for DSH 0.2.2-rc.3: fewer workflow constraints, less prompt interference and less orchestration overhead. Keep the official persona, practical tools, skills and workspace rules. Choose **KISS模式** in a new session. Install from the repository's commit-pinned remote subdirectory spec, not a local link.
+A subtractive Standard preset for DSH 0.2.2-rc.5: fewer workflow constraints, less prompt interference and less orchestration overhead. Keep the official persona, practical tools, skills and workspace rules. Choose **KISS模式** in a new session. Install a published build from the repository's pinned spec, or add the local directory to test this checkout.
 
 On Desktop, KISS omits the Web GUI address and related prompt guidance. Bundled Office skills are available through explicit invocation but are not advertised to the model. The default preset, permissions and MCP connections are unchanged.

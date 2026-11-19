@@ -79,7 +79,9 @@ test('repository catalog includes all five published plugins', async () => {
   assert.equal(specsOf(manifest, context()).length, 5);
   const kiss = manifest.plugins.find(plugin => plugin.name === '@local/dsh-kiss-preset');
   assert.equal(kiss.dir, 'kiss-preset');
-  assert.deepEqual(kiss.engines, { dsh: '0.2.2-rc.3' });
+  const index = renderIndex(manifest, { commit: manifest.commit, times: {} });
+  const kissVersion = index.plugins.find(plugin => plugin.name === kiss.name).versions[0];
+  assert.deepEqual(kissVersion.engines, {}, 'KISS does not inherit the catalog DSH range');
 });
 
 test('repo entries take their identity from the plugin package.json', () => {

@@ -1,4 +1,4 @@
-# Derived from the Standard preset shipped with DSH 0.2.2-rc.3.
+# Derived from the Standard preset shipped with DSH 0.2.2-rc.5.
 # Keep its persona and retained plugin settings unchanged; add no workflow prose.
 - insert:
     - id: preset-kiss
