@@ -2,7 +2,7 @@
   "$comment": "Single source of truth for this repo's plugin list. Run `node scripts/plugins.mjs index` after editing; never hand-edit market/index.json or the generated README blocks.",
   "profile": "desktop",
   "repository": "https://github.com/wooly99/dsh-plugins",
-  "commit": "b0f1a6552431e2f2cfe152e0260b65c432784fe9",
+  "commit": "947ed223a580596dbea36506852f0e77c878b2f0",
   "engines": {
     "dsh": ">=0.2.1-rc.5 <0.3.0"
   },
