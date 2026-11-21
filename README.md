@@ -1,6 +1,6 @@
 # DSH 插件（小毛毛熊）
 
-个人使用的 DSH 插件合集：4 个自制插件，加上 Codex 订阅接入。KISS模式及其与官方 Standard 的能力对比见[预设说明](kiss-preset/README.md)。
+个人使用的 DSH 插件合集：4 个自制插件，以及来自上游 npm 的 Codex 订阅接入和通知提醒。KISS模式及其与官方 Standard 的能力对比见[预设说明](kiss-preset/README.md)。
 
 <!-- plugins:table:start -->
 | 插件 | 功能 | 版本 | 来源 |
@@ -10,6 +10,7 @@
 | [VS Code 打开修复](open-in-app-fix/README.md) | 修复 Windows DSH 打开 VS Code / Insiders 工作区文件夹的问题。 | 1.0.0 | 本仓库 |
 | [KISS模式](kiss-preset/README.md) | 少约束、少干预，极简提速；保留实用工具与 Skills，让模型自主解决问题。 | 1.0.6 | 本仓库 |
 | [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.3 | npm |
+| [通知提醒](https://github.com/chromoany/dsh-notify-me#readme) | 需要你操作或后台回复完成时，发送系统通知和提示音，支持外部推送。 | 1.21.6 | npm |
 <!-- plugins:table:end -->
 
 ## 安装
@@ -22,6 +23,7 @@
 - VS Code 打开修复：`git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/open-in-app-fix`
 - KISS模式：`git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/kiss-preset`
 - Codex 订阅接入：`dsh-codex-subscription@3.2.3`
+- 通知提醒：`dsh-notify-me@1.21.6`
 <!-- plugins:specs:end -->
 
 安装后启用插件并重启 DSH。上面的地址已指向各插件子目录，直接复制即可。
@@ -30,7 +32,7 @@
 
 <!-- plugins:install:start -->
 ```bash
-dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/ui-enhancements" "git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/archive-cleanup" "git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/open-in-app-fix" "git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/kiss-preset" "dsh-codex-subscription@3.2.3"
+dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/ui-enhancements" "git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/archive-cleanup" "git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/open-in-app-fix" "git+https://github.com/wooly99/dsh-plugins.git#947ed223a580596dbea36506852f0e77c878b2f0&path:/kiss-preset" "dsh-codex-subscription@3.2.3" "dsh-notify-me@1.21.6"
 ```
 <!-- plugins:install:end -->
 

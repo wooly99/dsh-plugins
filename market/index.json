@@ -6,8 +6,8 @@
     "zh": "小毛毛熊的 DSH 插件"
   },
   "description": {
-    "en": "Personal DSH plugins: UI enhancements, archive cleanup, VS Code launch fix, KISS preset and Codex subscription.",
-    "zh": "个人 DSH 插件：界面小增强、归档清理、VS Code 打开修复、KISS模式与 Codex 订阅接入。"
+    "en": "Personal DSH plugin collection: UI enhancements, archive cleanup, VS Code launch fix, KISS preset, Codex subscription, and notifications.",
+    "zh": "个人 DSH 插件合集：界面小增强、归档清理、VS Code 打开修复、KISS模式、Codex 订阅接入与通知提醒。"
   },
   "metadata": {
     "categories": {
@@ -218,6 +218,39 @@
         {
           "version": "3.2.3",
           "publishTimestamp": 1793459990,
+          "source": {
+            "type": "npm"
+          }
+        }
+      ]
+    },
+    {
+      "name": "dsh-notify-me",
+      "title": {
+        "en": "DSH Notify Me",
+        "zh": "通知提醒"
+      },
+      "description": {
+        "en": "Get notified when DSH needs your input or finishes a reply in the background.",
+        "zh": "需要你操作或后台回复完成时，发送系统通知和提示音，支持外部推送。"
+      },
+      "author": "chromoany",
+      "homepage": "https://github.com/chromoany/dsh-notify-me#readme",
+      "metadata": {
+        "category": "session",
+        "keywords": [
+          "notification",
+          "approval",
+          "push",
+          "通知",
+          "提醒",
+          "审批"
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.21.6",
+          "publishTimestamp": 1795091517,
           "source": {
             "type": "npm"
           }
