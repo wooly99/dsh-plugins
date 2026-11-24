@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { runInNewContext } from 'node:vm'
 
-const source = await readFile(new URL('../client.js', import.meta.url), 'utf8')
+const source = await readFile(new URL('../components/workspace-header/client.js', import.meta.url), 'utf8')
 const SLOT = 'conversation.session.header.actions'
 
 function browser({ slots = true } = {}) {
@@ -36,7 +36,7 @@ function browser({ slots = true } = {}) {
       },
     },
     window: { __ModuleLoader__: { load(module) {
-      assert.equal(module.id, '@local/dsh-ui-enhancements')
+      assert.equal(module.id, '@local/dsh-ui-enhancements-workspace-header')
       definition = module.factory(name => {
         assert.equal(name, 'react')
         return { createElement: (type, props, ...children) => ({ type, props, children }) }
@@ -58,9 +58,9 @@ function browser({ slots = true } = {}) {
 }
 const text = node => typeof node === 'string' ? node : (node?.children ?? []).map(text).join('')
 
-test('workspace components do not inject the sidebar or register mouse listeners', () => {
+test('the workspace label activates only its own dependency scope', () => {
   const ui = browser()
-  assert.deepEqual(ui.injections, [['slots', 'locale'], ['sessions', 'workspaces', 'uiSession', 'locale'], ['slots', 'locale', 'configForms']])
+  assert.deepEqual(ui.injections, [['slots', 'locale']])
   assert.equal(ui.events.size, 0)
   assert.deepEqual(ui.closes, [])
   assert.equal(ui.rows.get(SLOT).spec.order, 1000)
@@ -129,17 +129,27 @@ test('long names are bounded with ellipsis but preserve the full path in accessi
   ui.dispose()
 })
 
-test('bundle uses the UI enhancements identity and declares the Desktop renderer dependencies', async () => {
-  const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
+test('the single bundle declares three separate native rows and preserves the diff settings namespace', async () => {
+  const load = async path => JSON.parse(await readFile(new URL(`../${path}`, import.meta.url), 'utf8'))
+  const pkg = await load('package.json')
   const patch = await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8')
   assert.equal(pkg.name, '@local/dsh-ui-enhancements')
-  assert.equal(pkg.dsh.client.platform, 'web')
-  assert.ok(!pkg.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-sidebar-right'))
-  assert.ok(pkg.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-workspace'))
-  assert.ok(pkg.dsh.client.inject.includes('@deepseek-ai/dsh-client-ui-conversation'))
-  assert.match(patch, /name: '@local\/dsh-ui-enhancements'/)
-  for (const lang of ['zh', 'en']) {
-    const locale = JSON.parse(await readFile(new URL(`../locale/${lang}.json`, import.meta.url), 'utf8'))
-    assert.equal(locale.meta.title, lang === 'zh' ? '界面小增强' : 'UI Enhancements')
+  assert.equal(pkg.dsh.client, undefined)
+  assert.deepEqual([...patch.matchAll(/- id: ([\w-]+)\s+name: '([^']+)'/g)].map(([, id, name]) => [id, name]), [
+    ['ui-enhancements-workspace-header', '@local/dsh-ui-enhancements-workspace-header'],
+    ['ui-enhancements-workspace-status', '@local/dsh-ui-enhancements-workspace-status'],
+    ['ui-enhancements', '@local/dsh-ui-enhancements-turn-diff'],
+  ])
+  for (const [dir, zh] of [['workspace-header', '会话工作区标记'], ['workspace-status', '折叠工作区状态'], ['turn-diff', '显示本轮代码差异']]) {
+    const base = `components/${dir}`
+    const component = await load(`${base}/package.json`)
+    assert.equal(component.name, `${pkg.name}-${dir}`)
+    assert.match(pkg.dependencies[component.name], new RegExp(`#[a-f0-9]{40}&path:/ui-enhancements/${base}$`))
+    assert.equal(component.dsh.client.platform, 'web')
+    assert.equal(component.dsh.bundle, undefined)
+    assert.equal(component.exports['./client'], './client.js')
+    assert.equal((await load(`${base}/locale/zh.json`)).meta.title, zh)
+    assert.ok((await load(`${base}/locale/en.json`)).meta.title)
   }
+  assert.equal((await load('locale/zh.json')).meta.title, '界面小增强')
 })

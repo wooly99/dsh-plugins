@@ -1,39 +1,23 @@
 {
   "name": "@local/dsh-ui-enhancements",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
-  "type": "module",
-  "description": "Small UI enhancements: workspace labels and status indicators, plus a separate turn code diff switch",
+  "description": "Three independently switchable UI enhancements for DeepSeek Harness",
+  "engines": {
+    "dsh": ">=0.2.2-rc.5 <0.3.0"
+  },
   "dependencies": {
-    "@deepseek-ai/schemastery": "~3.19.0"
+    "@local/dsh-ui-enhancements-workspace-header": "git+https://github.com/wooly99/dsh-plugins.git#5bf99f39cd560b2d3e7dfe4d4832d357dad67f77&path:/ui-enhancements/components/workspace-header",
+    "@local/dsh-ui-enhancements-workspace-status": "git+https://github.com/wooly99/dsh-plugins.git#5bf99f39cd560b2d3e7dfe4d4832d357dad67f77&path:/ui-enhancements/components/workspace-status",
+    "@local/dsh-ui-enhancements-turn-diff": "git+https://github.com/wooly99/dsh-plugins.git#5bf99f39cd560b2d3e7dfe4d4832d357dad67f77&path:/ui-enhancements/components/turn-diff"
   },
   "exports": {
-    ".": "./index.js",
-    "./client": "./client.js",
+    "./package.json": "./package.json",
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg"
   },
-  "files": [
-    "index.js",
-    "client.js",
-    "cordis.patch.yml",
-    "README.md",
-    "locale/*.json",
-    "icon.svg"
-  ],
+  "files": ["cordis.patch.yml", "README.md", "locale/*.json", "icon.svg"],
   "dsh": {
-    "bundle": {
-      "patch": "./cordis.patch.yml"
-    },
-    "client": {
-      "platform": "web",
-      "immediately": true,
-      "inject": [
-        "@deepseek-ai/dsh-client-ui-conversation",
-        "@deepseek-ai/dsh-client-ui-workspace",
-        "@deepseek-ai/dsh-client-ui-session",
-        "@deepseek-ai/dsh-client-locale"
-      ]
-    }
+    "bundle": { "patch": "./cordis.patch.yml" }
   }
 }

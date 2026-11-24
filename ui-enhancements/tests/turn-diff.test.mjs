@@ -3,13 +3,13 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { runInNewContext } from 'node:vm'
 
-const source = await readFile(new URL('../client.js', import.meta.url), 'utf8')
+const source = await readFile(new URL('../components/turn-diff/client.js', import.meta.url), 'utf8')
 const settings = 'settings.general.item'
 const tail = 'conversation.chat.turnTail'
 const field = 'showTurnCodeDiff'
 
 function form(value, overrides = {}) {
-  let snapshot = { status: 'ready', value, writable: true, revision: 3 }
+  let snapshot = { status: 'ready', value, user: overrides.user, writable: true, revision: 3 }
   const listeners = new Set(), writes = []
   function publish(next) {
     snapshot = { ...snapshot, value: next, revision: snapshot.revision + 1 }
@@ -35,9 +35,11 @@ function form(value, overrides = {}) {
   }
 }
 
-function fixture(enabled, saved, { mismatchedTail = false, mutation, refuse = false } = {}) {
+function fixture(enabled, saved, { mismatchedTail = false, mutation, refuse = false, previousUserValue } = {}) {
   const legacy = form(enabled === undefined ? undefined : { enabled })
-  const diff = form(saved === undefined ? {} : { [field]: saved }, { mutate: mutation, refuse })
+  const diff = form(saved === undefined ? {} : { [field]: saved }, {
+    mutate: mutation, refuse, user: previousUserValue === undefined ? undefined : { [field]: previousUserValue },
+  })
   const nativeCard = () => {}
   const nativeRow = () => {}
   const native = {
@@ -80,6 +82,7 @@ function fixture(enabled, saved, { mismatchedTail = false, mutation, refuse = fa
   const advancedRow = () => winner('developer-tools')
   return {
     legacy, diff, nativeCard, nativeRow, nativeTail, warnings, entries, advancedRow, diffRow,
+    tailEntries: () => rows.get(tail),
     read: () => diffRow().inject().hooks.developerTools.getSnapshot(),
     card: props => nativeTail.component(props),
     title(entry) {
@@ -124,6 +127,29 @@ test('stored false is not migrated and only the card hook is adapted, preserving
   assert.equal(ui.diffRow(), undefined)
   assert.equal(ui.diff.listeners.size, 0)
   assert.equal(ui.legacy.listeners.size, 0)
+})
+
+for (const previousUserValue of [false, true]) {
+  test(`1.3.0 name-qualified preference ${previousUserValue} takes precedence over the opposite native value`, async () => {
+    const ui = fixture(!previousUserValue, undefined, { previousUserValue })
+    assert.equal(ui.read(), previousUserValue)
+    assert.deepEqual(ui.diff.writes, [[field, previousUserValue, 3]])
+    await ui.advancedRow().inject().setEnabled(previousUserValue)
+    assert.equal(ui.diff.getSnapshot().value[field], previousUserValue)
+    ui.dispose()
+  })
+}
+
+test('hot disabling removes only the diff fallback registration and restores the native cell', () => {
+  const ui = fixture(false, true)
+  assert.equal(ui.tailEntries().length, 2)
+  const [native, refresher] = ui.tailEntries()
+  assert.equal(refresher.options.id, native.options.id)
+  assert.ok(refresher.options.priority > (native.options.priority ?? 0))
+  assert.equal(refresher.component(), null)
+  ui.dispose()
+  assert.deepEqual(ui.tailEntries(), [ui.nativeTail])
+  assert.equal(ui.diff.getSnapshot().value[field], true)
 })
 
 test('waiting for Host settings does not save a provisional false value', async () => {

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { runInNewContext } from 'node:vm'
 
-const source = await readFile(new URL('../client.js', import.meta.url), 'utf8')
+const source = await readFile(new URL('../components/workspace-status/client.js', import.meta.url), 'utf8')
 const ROW = '[role="treeitem"][data-row-key^="workspace:"][aria-expanded]'
 
 function store(value) {
@@ -84,7 +84,10 @@ function fixture() {
       observe(target, options) { assert.equal(target, body); assert.equal(options.subtree, true); assert.deepEqual(Array.from(options.attributeFilter), ['aria-expanded', 'data-row-key']) }
       disconnect() { this.active = false }
     },
-    window: { __ModuleLoader__: { load: module => module.factory(() => ({})).apply(ctx) } },
+    window: { __ModuleLoader__: { load(module) {
+      assert.equal(module.id, '@local/dsh-ui-enhancements-workspace-status')
+      module.factory().apply(ctx)
+    } } },
   })
   return {
     Node, row, initialRow, body, head, sessions, workspaces, statuses, language,

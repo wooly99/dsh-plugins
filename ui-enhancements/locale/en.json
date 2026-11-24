@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "UI Enhancements",
-    "description": "Show the session workspace and activity in collapsed groups. In Settings → General, use Show code changes for each turn without enabling the trajectory or full Agent presets. Upgrading preserves the previous visibility."
+    "description": "Switch the workspace label, collapsed workspace status, and turn code changes on or off independently under Included components. With turn code changes enabled, Settings → General controls diffs separately from the trajectory and Agent presets."
   }
 }
