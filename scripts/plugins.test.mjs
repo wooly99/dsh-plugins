@@ -6,7 +6,6 @@ import {
   loadManifest,
   normalizeManifest,
   renderIndex,
-  renderInstall,
   renderReadme,
   renderSpecs,
   renderTable,
@@ -60,9 +59,6 @@ const README = [
   '<!-- plugins:specs:start -->',
   'stale',
   '<!-- plugins:specs:end -->',
-  '<!-- plugins:install:start -->',
-  'stale',
-  '<!-- plugins:install:end -->',
   'tail'
 ].join('\n');
 
@@ -206,15 +202,6 @@ test('the table and specs use the Chinese labels when present', () => {
   assert.match(specs, /^- Pkg：`pkg@1\.2\.3`$/m);
 });
 
-test('the install command quotes every spec so & survives a shell', () => {
-  const manifest = normalizeManifest(raw(), readPackage);
-  const block = renderInstall(manifest, context());
-  const command = block.split('\n')[1];
-  assert.ok(command.startsWith('dsh plugin --profile desktop add --ignore-scripts '), command);
-  assert.ok(command.includes(`"git+https://github.com/wooly99/dsh-plugins.git#${COMMIT}&path:/one"`), command);
-  assert.ok(command.includes('"pkg@1.2.3"'), command);
-});
-
 test('replaceBlock keeps everything outside the markers', () => {
   const once = replaceBlock(README, 'plugins:table', '| a |');
   assert.ok(once.startsWith('# Title\n<!-- plugins:table:start -->\n| a |\n<!-- plugins:table:end -->\nprose'));
@@ -222,10 +209,11 @@ test('replaceBlock keeps everything outside the markers', () => {
   assert.throws(() => replaceBlock('no markers', 'plugins:table', 'x'), /缺少/);
 });
 
-test('renderReadme fills all three blocks and is idempotent', () => {
+test('renderReadme fills the table and manual install addresses and is idempotent', () => {
   const manifest = normalizeManifest(raw(), readPackage);
   const once = renderReadme(README, manifest, context());
   assert.equal(renderReadme(once, manifest, context()), once);
   assert.ok(once.includes('[一号](one/README.md)'), once);
+  assert.match(once, /^- Pkg：`pkg@1\.2\.3`$/m);
   assert.ok(once.endsWith('tail'), once);
 });

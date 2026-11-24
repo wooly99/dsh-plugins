@@ -15,7 +15,24 @@
 
 ## 安装
 
-侧栏「插件」→「添加插件」，按需粘贴下面的安装地址：
+### 从插件市场安装（推荐）
+
+1. 在 DSH 侧栏打开「插件」→「发现」→「添加索引源」。如果已经添加过其他索引源，请从索引下拉菜单选择「管理索引源…」。
+2. 在「索引 URL」粘贴下面的地址，点击「添加」：
+
+   ```text
+   https://raw.githubusercontent.com/wooly99/dsh-plugins/main/market/index.json
+   ```
+
+3. 在「发现」中选择「小毛毛熊的 DSH 插件」，找到想要的插件，点击「安装」。
+
+**没有「发现」？** 到「插件」→「实验性插件」→「更多」，启用「自定义插件索引」，再回到「插件」页。
+
+以后不用重新添加地址。回到「发现」点「刷新」，看到「更新」就可以直接更新。
+
+### 备用：手动安装
+
+如果无法使用插件市场，打开「插件」→「添加插件」，按需粘贴下面的安装地址：
 
 <!-- plugins:specs:start -->
 - 界面小增强：`git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/ui-enhancements`
@@ -26,23 +43,13 @@
 - 通知提醒：`dsh-notify-me@1.21.6`
 <!-- plugins:specs:end -->
 
-安装后启用插件并重启 DSH。上面的地址已指向各插件子目录，直接复制即可。
-
-### 命令行安装全部
-
-<!-- plugins:install:start -->
-```bash
-dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/ui-enhancements" "git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/archive-cleanup" "git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/open-in-app-fix" "git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/kiss-preset" "dsh-codex-subscription@3.2.3" "dsh-notify-me@1.21.6"
-```
-<!-- plugins:install:end -->
-
-本地开发：`node scripts/plugins.mjs install`。默认链接本地源码；`--remote` 安装远程版本，`--dsh <路径>` 指定 DSH CLI。
-
-也可以通过[自定义插件市场](market/README.md)浏览安装。
+安装后按界面提示启用插件；如果提示需要重启，再重启 DSH。
 
 ## 更新与维护
 
 [plugins.json](plugins.json) 统一管理插件列表、安装地址和市场索引。
+
+本地开发：`node scripts/plugins.mjs install`。默认链接本地源码；`--remote` 安装远程版本，`--dsh <路径>` 指定 DSH CLI。
 
 | 命令 | 用途 |
 |---|---|

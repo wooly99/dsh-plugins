@@ -19,7 +19,7 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const BLOCKS = ['plugins:table', 'plugins:specs', 'plugins:install'];
+const BLOCKS = ['plugins:table', 'plugins:specs'];
 
 /* ---------------------------------------------------------------- manifest */
 
@@ -135,12 +135,6 @@ export function renderSpecs(manifest, context) {
   return manifest.plugins.map((plugin) => `- ${labelOf(plugin)}：\`${specOf(plugin, context)}\``).join('\n');
 }
 
-export function renderInstall(manifest, context) {
-  const specs = specsOf(manifest, context).map((spec) => `"${spec}"`);
-  const command = ['dsh', 'plugin', '--profile', manifest.profile, 'add', '--ignore-scripts', ...specs].join(' ');
-  return ['```bash', command, '```'].join('\n');
-}
-
 /**
  * Replace the body between `<!-- <name>:start -->` and `<!-- <name>:end -->`.
  * @param {string} text file contents
@@ -159,8 +153,7 @@ export function replaceBlock(text, name, body, file = 'README.md') {
 export function renderReadme(text, manifest, context) {
   const bodies = {
     'plugins:table': renderTable(manifest),
-    'plugins:specs': renderSpecs(manifest, context),
-    'plugins:install': renderInstall(manifest, context)
+    'plugins:specs': renderSpecs(manifest, context)
   };
   return BLOCKS.reduce((current, name) => replaceBlock(current, name, bodies[name]), text);
 }
