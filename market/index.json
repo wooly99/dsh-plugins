@@ -45,13 +45,15 @@
         "zh": "界面小增强"
       },
       "description": {
-        "en": "Session workspace in the header and activity indicators for collapsed workspaces.",
-        "zh": "会话工作区顶部栏标记、折叠工作区状态提示。"
+        "en": "Workspace labels and status indicators, plus an independent switch for turn code changes.",
+        "zh": "会话工作区顶部栏标记、折叠工作区状态提示、本轮代码差异独立开关。"
       },
       "icon": "./icons/ui-enhancements.svg",
       "metadata": {
         "category": "ui",
         "keywords": [
+          "code diff",
+          "代码差异",
           "workspace",
           "header",
           "enhancements",
@@ -65,16 +67,16 @@
       },
       "versions": [
         {
-          "version": "1.2.2",
-          "publishTimestamp": 1794686460,
+          "version": "1.3.0",
+          "publishTimestamp": 1795490445,
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "947ed223a580596dbea36506852f0e77c878b2f0",
+            "commit": "373c5db7da6d06ed4adb563f183707a95860c4de",
             "path": "ui-enhancements"
           },
           "engines": {
-            "dsh": ">=0.2.1-rc.5 <0.3.0"
+            "dsh": ">=0.2.2-rc.5 <0.3.0"
           }
         }
       ]
@@ -109,7 +111,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "947ed223a580596dbea36506852f0e77c878b2f0",
+            "commit": "373c5db7da6d06ed4adb563f183707a95860c4de",
             "path": "archive-cleanup"
           },
           "engines": {
@@ -147,7 +149,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "947ed223a580596dbea36506852f0e77c878b2f0",
+            "commit": "373c5db7da6d06ed4adb563f183707a95860c4de",
             "path": "open-in-app-fix"
           },
           "engines": {
@@ -186,7 +188,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "947ed223a580596dbea36506852f0e77c878b2f0",
+            "commit": "373c5db7da6d06ed4adb563f183707a95860c4de",
             "path": "kiss-preset"
           },
           "engines": {}

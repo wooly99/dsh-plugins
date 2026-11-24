@@ -2,7 +2,7 @@
   "$comment": "Single source of truth for this repo's plugin list. Run `node scripts/plugins.mjs index` after editing; never hand-edit market/index.json or the generated README blocks.",
   "profile": "desktop",
   "repository": "https://github.com/wooly99/dsh-plugins",
-  "commit": "947ed223a580596dbea36506852f0e77c878b2f0",
+  "commit": "373c5db7da6d06ed4adb563f183707a95860c4de",
   "engines": {
     "dsh": ">=0.2.1-rc.5 <0.3.0"
   },
@@ -52,10 +52,15 @@
         "zh": "界面小增强"
       },
       "summary": {
-        "en": "Session workspace in the header and activity indicators for collapsed workspaces.",
-        "zh": "会话工作区顶部栏标记、折叠工作区状态提示。"
+        "en": "Workspace labels and status indicators, plus an independent switch for turn code changes.",
+        "zh": "会话工作区顶部栏标记、折叠工作区状态提示、本轮代码差异独立开关。"
+      },
+      "engines": {
+        "dsh": ">=0.2.2-rc.5 <0.3.0"
       },
       "keywords": [
+        "code diff",
+        "代码差异",
         "workspace",
         "header",
         "enhancements",
