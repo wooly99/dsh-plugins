@@ -1,12 +1,9 @@
 import Schema from '@deepseek-ai/schemastery'
+import { exposeSettings } from '../presence.js'
 
 export const Config = Schema.object({
   // A missing value inherits the old preference on first client activation.
   showTurnCodeDiff: Schema.boolean().volatile(),
 })
 
-export function apply(ctx) {
-  ctx.inject(['settings'], child => {
-    child.effect(() => child.settings.configure({ auto: false }, ctx.fiber))
-  })
-}
+export function apply(ctx) { exposeSettings(ctx) }

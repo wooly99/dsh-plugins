@@ -44,7 +44,7 @@
 
 ## 结构与扩展
 
-[组合包清单](package.json) 是唯一的市场入口；[插件补丁](cordis.patch.yml) 注册三个 Host 条目，分别加载 [工作区标记](components/workspace-header/client.js)、[折叠状态](components/workspace-status/client.js) 和 [本轮代码差异](components/turn-diff/client.js) 的 Client 模块。三个组件独立加载、清理，不是单独的市场安装项。差异组件沿用原条目 ID 来保留配置命名空间。
+[组合包清单](package.json) 是唯一的市场入口。[插件补丁](cordis.patch.yml) 通过 DSH 分组管理三个独立的 Host 条目；[浏览器入口](client.js) 根据 DSH 设置镜像的组件可用性分别挂载和清理三个功能。差异组件沿用原条目 ID 来保留配置命名空间。
 
 ## 安装与验证
 

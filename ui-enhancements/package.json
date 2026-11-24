@@ -2,22 +2,32 @@
   "name": "@local/dsh-ui-enhancements",
   "version": "1.4.0",
   "private": true,
+  "type": "module",
   "description": "Three independently switchable UI enhancements for DeepSeek Harness",
-  "engines": {
-    "dsh": ">=0.2.2-rc.5 <0.3.0"
-  },
+  "engines": { "dsh": ">=0.2.2-rc.5 <0.3.0" },
   "dependencies": {
-    "@local/dsh-ui-enhancements-workspace-header": "git+https://github.com/wooly99/dsh-plugins.git#5bf99f39cd560b2d3e7dfe4d4832d357dad67f77&path:/ui-enhancements/components/workspace-header",
-    "@local/dsh-ui-enhancements-workspace-status": "git+https://github.com/wooly99/dsh-plugins.git#5bf99f39cd560b2d3e7dfe4d4832d357dad67f77&path:/ui-enhancements/components/workspace-status",
-    "@local/dsh-ui-enhancements-turn-diff": "git+https://github.com/wooly99/dsh-plugins.git#5bf99f39cd560b2d3e7dfe4d4832d357dad67f77&path:/ui-enhancements/components/turn-diff"
+    "@deepseek-ai/cordis-plugin-group": "~1.1.0",
+    "@deepseek-ai/schemastery": "~3.19.0"
   },
   "exports": {
+    ".": "./index.js",
     "./package.json": "./package.json",
+    "./client": "./client.js",
     "./locale/*.json": "./locale/*.json",
-    "./icon": "./icon.svg"
+    "./icon": "./icon.svg",
+    "./workspace-header": "./components/workspace-header/index.js",
+    "./workspace-header/locale/*.json": "./components/workspace-header/locale/*.json",
+    "./workspace-header/icon": "./components/workspace-header/icon.svg",
+    "./workspace-status": "./components/workspace-status/index.js",
+    "./workspace-status/locale/*.json": "./components/workspace-status/locale/*.json",
+    "./workspace-status/icon": "./components/workspace-status/icon.svg",
+    "./turn-diff": "./components/turn-diff/index.js",
+    "./turn-diff/locale/*.json": "./components/turn-diff/locale/*.json",
+    "./turn-diff/icon": "./components/turn-diff/icon.svg"
   },
-  "files": ["cordis.patch.yml", "README.md", "locale/*.json", "icon.svg"],
+  "files": ["index.js", "client.js", "components", "cordis.patch.yml", "README.md", "locale/*.json", "icon.svg"],
   "dsh": {
-    "bundle": { "patch": "./cordis.patch.yml" }
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": { "platform": "web", "immediately": true }
   }
 }

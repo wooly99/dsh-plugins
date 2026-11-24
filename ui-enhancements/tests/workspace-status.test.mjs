@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { runInNewContext } from 'node:vm'
 
-const source = await readFile(new URL('../components/workspace-status/client.js', import.meta.url), 'utf8')
+const source = await readFile(new URL('../client.js', import.meta.url), 'utf8')
 const ROW = '[role="treeitem"][data-row-key^="workspace:"][aria-expanded]'
 
 function store(value) {
@@ -58,6 +58,7 @@ function fixture() {
   const statuses = store(new Map()), language = store('zh'), dictionaries = {}, cleanups = []
   const ctx = {
     sessions: { list: sessions }, workspaces: { list: workspaces }, uiSession: { sessionStatus: statuses },
+    configForms: { whileServed([ns], start) { if (ns === 'ui-enhancements-workspace-status') start(); return () => {} } },
     locale: {
       register(ns, values) { dictionaries[ns] = values; return () => { delete dictionaries[ns] } },
       bind(ns) { return (key, params) => dictionaries[ns][activeLanguage][key].replace('{count}', params.count) },
@@ -85,8 +86,8 @@ function fixture() {
       disconnect() { this.active = false }
     },
     window: { __ModuleLoader__: { load(module) {
-      assert.equal(module.id, '@local/dsh-ui-enhancements-workspace-status')
-      module.factory().apply(ctx)
+      assert.equal(module.id, '@local/dsh-ui-enhancements')
+      module.factory(() => ({})).apply(ctx)
     } } },
   })
   return {

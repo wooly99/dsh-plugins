@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { runInNewContext } from 'node:vm'
 
-const source = await readFile(new URL('../components/turn-diff/client.js', import.meta.url), 'utf8')
+const source = await readFile(new URL('../client.js', import.meta.url), 'utf8')
 const settings = 'settings.general.item'
 const tail = 'conversation.chat.turnTail'
 const field = 'showTurnCodeDiff'
@@ -53,8 +53,11 @@ function fixture(enabled, saved, { mismatchedTail = false, mutation, refuse = fa
   const cleanups = [], warnings = [], rows = new Map([[settings, [native]], [tail, [nativeTail]]]), dictionaries = new Map()
   const ctx = {
     inject(names, fn) { if (names.every(name => ctx[name])) fn(ctx) },
-    effect(fn) { cleanups.push(fn()) },
-    configForms: { get: ns => ns === 'ui-settings' ? legacy : diff },
+    effect(fn) { const off = fn(); if (off) cleanups.push(off) },
+    configForms: {
+      get: ns => ns === 'ui-settings' ? legacy : diff,
+      whileServed([ns], start) { if (ns === 'ui-enhancements') start(); return () => {} },
+    },
     logger: { warn: (...args) => warnings.push(args) },
     locale: { register(ns, dict) { dictionaries.set(ns, dict.zh); return () => dictionaries.delete(ns) } },
     slots: {

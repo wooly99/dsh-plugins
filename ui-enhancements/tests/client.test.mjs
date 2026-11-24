@@ -3,12 +3,13 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { runInNewContext } from 'node:vm'
 
-const source = await readFile(new URL('../components/workspace-header/client.js', import.meta.url), 'utf8')
+const source = await readFile(new URL('../client.js', import.meta.url), 'utf8')
 const SLOT = 'conversation.session.header.actions'
 
 function browser({ slots = true } = {}) {
   const events = new Map(), rows = new Map(), dictionaries = {}, closes = [], cleanups = [], injections = []
   const ctx = {
+    configForms: { whileServed([ns], start) { if (ns === 'ui-enhancements-workspace-header') start(); return () => {} } },
     effect(callback) { const cleanup = callback(); if (typeof cleanup === 'function') cleanups.push(cleanup) },
     sidebarRight: { close: id => closes.push(id) },
     ...(slots ? {
@@ -36,7 +37,7 @@ function browser({ slots = true } = {}) {
       },
     },
     window: { __ModuleLoader__: { load(module) {
-      assert.equal(module.id, '@local/dsh-ui-enhancements-workspace-header')
+      assert.equal(module.id, '@local/dsh-ui-enhancements')
       definition = module.factory(name => {
         assert.equal(name, 'react')
         return { createElement: (type, props, ...children) => ({ type, props, children }) }
@@ -60,7 +61,7 @@ const text = node => typeof node === 'string' ? node : (node?.children ?? []).ma
 
 test('the workspace label activates only its own dependency scope', () => {
   const ui = browser()
-  assert.deepEqual(ui.injections, [['slots', 'locale']])
+  assert.deepEqual(ui.injections[0], ['configForms', 'slots', 'locale'])
   assert.equal(ui.events.size, 0)
   assert.deepEqual(ui.closes, [])
   assert.equal(ui.rows.get(SLOT).spec.order, 1000)
@@ -129,25 +130,52 @@ test('long names are bounded with ellipsis but preserve the full path in accessi
   ui.dispose()
 })
 
+test('the client starts and stops just the effect for the changed Host row', () => {
+  const watches = new Map(), active = new Set(), stopped = []
+  const ctx = {
+    inject(_names, callback) { callback(ctx) },
+    effect(callback, label) {
+      if (label.endsWith(' active')) {
+        active.add(label)
+        return () => { active.delete(label); stopped.push(label) }
+      }
+      return callback()
+    },
+    configForms: { whileServed([ns], start) { watches.set(ns, start); return () => watches.delete(ns) } },
+  }
+  runInNewContext(source, { window: { __ModuleLoader__: { load: module => module.factory(() => ({})).apply(ctx) } } })
+  const namespaces = ['ui-enhancements-workspace-header', 'ui-enhancements-workspace-status', 'ui-enhancements']
+  assert.deepEqual([...watches.keys()], namespaces)
+  const unload = namespaces.map(ns => watches.get(ns)())
+  const labels = namespaces.map(ns => `ui-enhancements: ${ns} active`)
+  assert.deepEqual([...active], labels)
+  unload[1]()
+  assert.deepEqual([...active], [labels[0], labels[2]])
+  assert.deepEqual(stopped, [labels[1]])
+  const stopAgain = watches.get(namespaces[1])()
+  assert.equal(active.size, 3)
+  unload[0](); unload[2](); stopAgain()
+  assert.equal(active.size, 0)
+})
+
 test('the single bundle declares three separate native rows and preserves the diff settings namespace', async () => {
   const load = async path => JSON.parse(await readFile(new URL(`../${path}`, import.meta.url), 'utf8'))
   const pkg = await load('package.json')
   const patch = await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8')
   assert.equal(pkg.name, '@local/dsh-ui-enhancements')
-  assert.equal(pkg.dsh.client, undefined)
-  assert.deepEqual([...patch.matchAll(/- id: ([\w-]+)\s+name: '([^']+)'/g)].map(([, id, name]) => [id, name]), [
-    ['ui-enhancements-workspace-header', '@local/dsh-ui-enhancements-workspace-header'],
-    ['ui-enhancements-workspace-status', '@local/dsh-ui-enhancements-workspace-status'],
-    ['ui-enhancements', '@local/dsh-ui-enhancements-turn-diff'],
+  assert.equal(pkg.dsh.client.platform, 'web')
+  assert.equal(pkg.exports['./client'], './client.js')
+  assert.match(patch, /name: '@local\/dsh-ui-enhancements'\s+group: true\s+config:/)
+  assert.deepEqual([...patch.matchAll(/^ {8}- id: ([\w-]+)\s+name: '([^']+)'/gm)].map(([, id, name]) => [id, name]), [
+    ['ui-enhancements-workspace-header', '@local/dsh-ui-enhancements/workspace-header'],
+    ['ui-enhancements-workspace-status', '@local/dsh-ui-enhancements/workspace-status'],
+    ['ui-enhancements', '@local/dsh-ui-enhancements/turn-diff'],
   ])
   for (const [dir, zh] of [['workspace-header', '会话工作区标记'], ['workspace-status', '折叠工作区状态'], ['turn-diff', '显示本轮代码差异']]) {
     const base = `components/${dir}`
-    const component = await load(`${base}/package.json`)
-    assert.equal(component.name, `${pkg.name}-${dir}`)
-    assert.match(pkg.dependencies[component.name], new RegExp(`#[a-f0-9]{40}&path:/ui-enhancements/${base}$`))
-    assert.equal(component.dsh.client.platform, 'web')
-    assert.equal(component.dsh.bundle, undefined)
-    assert.equal(component.exports['./client'], './client.js')
+    assert.equal(pkg.exports[`./${dir}`], `./${base}/index.js`)
+    assert.equal(pkg.exports[`./${dir}/locale/*.json`], `./${base}/locale/*.json`)
+    assert.equal(pkg.exports[`./${dir}/icon`], `./${base}/icon.svg`)
     assert.equal((await load(`${base}/locale/zh.json`)).meta.title, zh)
     assert.ok((await load(`${base}/locale/en.json`)).meta.title)
   }
