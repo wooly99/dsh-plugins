@@ -1,8 +1,12 @@
-/**
- * Host half of UI Enhancements (legacy package id kept for compatibility).
- *
- * Both components run in the Desktop/Web renderer. This no-op Host row lets
- * the profile carry the bundle and exposes its metadata in the Plugins page.
- * No Host service or session configuration is changed.
- */
-export function apply() {}
+import Schema from '@deepseek-ai/schemastery'
+
+export const Config = Schema.object({
+  // No default: the Client initializes a missing value from the old switch.
+  showTurnCodeDiff: Schema.boolean().volatile(),
+})
+
+export function apply(ctx) {
+  ctx.inject(['settings'], child => {
+    child.effect(() => child.settings.configure({ auto: false }, ctx.fiber))
+  })
+}

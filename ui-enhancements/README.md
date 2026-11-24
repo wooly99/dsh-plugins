@@ -1,11 +1,12 @@
 # 界面小增强 · UI Enhancements
 
-将零散的界面便利功能放在一个插件里。目前包含 **2 个独立组件**：
+将零散的界面便利功能放在一个插件里。目前包含 **3 个独立组件**：
 
 | 组件 | 行为 |
 |---|---|
 | 会话工作区标记 | 顶部左侧标题/操作组的最右侧，显示文件夹图标和当前会话所属工作区名称；悬停查看完整路径。 |
 | 折叠工作区状态 | 工作区折叠时，在标题行最右侧显示运行转圈、待处理黄点或未查看完成绿点。 |
+| 本轮代码差异 | 在「设置 → 通用」单独显示轮末的变更文件卡片，不必开启轨迹或完整 Agent 预设。 |
 
 包标识为 `@local/dsh-ui-enhancements`，源码目录为 `ui-enhancements`。它是一个组合包，不是两个需要分别安装的插件。
 
@@ -34,28 +35,33 @@
 - 订阅会话、工作区和 UI 状态源，无 HTTP 请求或定时轮询。MutationObserver 处理折叠、列表重建及行复用，忽略聊天流式文本更新；重复同步不会添加重复标记。卸载会断开 Observer、退订并删除所有自有标记及样式。
 - 提示支持中英文、屏幕阅读器标签和 `prefers-reduced-motion`，不遮挡菜单按钮，点击仍交由工作区行处理。
 
+## 组件 3：本轮代码差异
+
+- 在「设置 → 通用」打开 **显示本轮代码差异**，关闭 **显示高级代码工作视图**，即可只保留轮末变更文件卡片。点击文件仍使用 DSH 自带的侧栏差异面板。
+- 第一次在有写权限的客户端加载时，将旧开关的实际值保存成独立的差异偏好；后续更改高级视图不会影响它。已经保存的偏好不会重新迁移。
+- 高级视图的其他原生行为不变，包括轨迹、完整 Agent 预设和 HTML 预览策略。这一组件不修改会话数据，也不改变 DSH 原有的差异记录规则。
+- 当前适配 DSH `0.2.2-rc.5` 的原生设置项和轮末插槽；不修改 DSH 安装文件，不复制差异组件。如果宿主没有相应插槽或入口，保留原生行为。
+
 ## 结构与扩展
 
-`client.js` 中的 `installWorkspaceHeader` 与 `installCollapsedWorkspaceStatus` 分别通过 `ctx.inject` 建立作用域，互不依赖，卸载时各自释放监听与槽注册。后续的小功能继续以独立安装函数扩充，不耦合现有组件。
-
-Host 入口 `index.js` 为空实现，仅承载组合包。`dsh.client.platform: web` 是 Desktop 内嵌界面的客户端目标声明，不会启动额外 WebUI。
+三个组件各自使用 `ctx.inject` 管理依赖和清理，不互相依赖。Host 只提供差异可见性的独立配置项。`dsh.client.platform: web` 是 Desktop 内嵌界面的客户端目标声明，不会启动额外 WebUI。
 
 ## 安装与验证
 
-沿用仓库根目录的安装方式。老版本需在 Desktop 插件管理中卸载后重装；本次包标识已更名，不能同时保留旧包。
+沿用仓库根目录的安装方式；已安装 `@local/dsh-ui-enhancements` 的用户不需要先卸载。只有更早的 `@local/dsh-rightbar-middle-close` 需要按前面的说明迁移。
 
-本地开发可仅安装此包：
+本地开发先在仓库根目录安装链接包的依赖，再从「插件 → 添加插件」选择 `ui-enhancements` 的本地目录：
 
 ```powershell
-dsh plugin --profile desktop add --ignore-scripts "link:D:/projects/dsh-plugins/ui-enhancements"
+npm --prefix ui-enhancements install --ignore-scripts --no-package-lock
 ```
 
-使用本地源码时，在 Desktop 插件页确认启用，重启 Desktop 后验证。不要同时保留远程副本和另一个包名的重复副本。
+在 Desktop 插件页确认启用，重启 Desktop 后验证。不要同时保留远程副本和另一个包名的重复副本。
 
 ```bash
 node --test ui-enhancements/tests/*.test.mjs
 ```
 
-自动测试覆盖两个组件的注册/清理、按会话解析工作区、自定义名称、路径边界、折叠/展开、运行与完成优先级、等待交互、归档过滤、子代理、DOM 重建及 Observer 幂等性。尚未在 Desktop 实际界面进行视觉验证。
+自动测试覆盖三个组件的注册和清理、工作区标记和状态，以及旧开关开/关迁移、已保存偏好保留、独立控制和保存失败处理。
 
 发布需先提交插件源码，再运行根目录说明中的 `index --commit <sha>` 更新远程安装 pin；未提交的新功能只能从本地源码安装。

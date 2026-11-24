@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "UI Enhancements",
-    "description": "Two small components: session workspace in the header and activity indicators for collapsed workspaces."
+    "description": "Show the session workspace and activity in collapsed groups. In Settings → General, use Show code changes for each turn without enabling the trajectory or full Agent presets. Upgrading preserves the previous visibility."
   }
 }

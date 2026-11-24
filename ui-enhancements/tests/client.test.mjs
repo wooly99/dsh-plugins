@@ -60,7 +60,7 @@ const text = node => typeof node === 'string' ? node : (node?.children ?? []).ma
 
 test('workspace components do not inject the sidebar or register mouse listeners', () => {
   const ui = browser()
-  assert.deepEqual(ui.injections, [['slots', 'locale'], ['sessions', 'workspaces', 'uiSession', 'locale']])
+  assert.deepEqual(ui.injections, [['slots', 'locale'], ['sessions', 'workspaces', 'uiSession', 'locale'], ['slots', 'locale', 'configForms']])
   assert.equal(ui.events.size, 0)
   assert.deepEqual(ui.closes, [])
   assert.equal(ui.rows.get(SLOT).spec.order, 1000)
