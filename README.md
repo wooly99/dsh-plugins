@@ -5,7 +5,7 @@
 <!-- plugins:table:start -->
 | 插件 | 功能 | 版本 | 来源 |
 |---|---|---|---|
-| [界面小增强](ui-enhancements/README.md) | 会话工作区顶部栏标记、折叠工作区状态提示、本轮代码差异独立开关。 | 1.3.0 | 本仓库 |
+| [界面小增强](ui-enhancements/README.md) | 一个安装包，三个可分别启停的组件：会话工作区标记、折叠工作区状态、本轮代码差异。 | 1.4.0 | 本仓库 |
 | [归档清理](archive-cleanup/README.md) | 在设置里一键永久删除已归档会话，释放磁盘空间。 | 1.1.1 | 本仓库 |
 | [VS Code 打开修复](open-in-app-fix/README.md) | 修复 Windows DSH 打开 VS Code / Insiders 工作区文件夹的问题。 | 1.0.0 | 本仓库 |
 | [KISS模式](kiss-preset/README.md) | 少约束、少干预，极简提速；保留实用工具与 Skills，让模型自主解决问题。 | 1.0.6 | 本仓库 |
@@ -18,10 +18,10 @@
 侧栏「插件」→「添加插件」，按需粘贴下面的安装地址：
 
 <!-- plugins:specs:start -->
-- 界面小增强：`git+https://github.com/wooly99/dsh-plugins.git#373c5db7da6d06ed4adb563f183707a95860c4de&path:/ui-enhancements`
-- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#373c5db7da6d06ed4adb563f183707a95860c4de&path:/archive-cleanup`
-- VS Code 打开修复：`git+https://github.com/wooly99/dsh-plugins.git#373c5db7da6d06ed4adb563f183707a95860c4de&path:/open-in-app-fix`
-- KISS模式：`git+https://github.com/wooly99/dsh-plugins.git#373c5db7da6d06ed4adb563f183707a95860c4de&path:/kiss-preset`
+- 界面小增强：`git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/ui-enhancements`
+- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/archive-cleanup`
+- VS Code 打开修复：`git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/open-in-app-fix`
+- KISS模式：`git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/kiss-preset`
 - Codex 订阅接入：`dsh-codex-subscription@3.2.3`
 - 通知提醒：`dsh-notify-me@1.21.6`
 <!-- plugins:specs:end -->
@@ -32,7 +32,7 @@
 
 <!-- plugins:install:start -->
 ```bash
-dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#373c5db7da6d06ed4adb563f183707a95860c4de&path:/ui-enhancements" "git+https://github.com/wooly99/dsh-plugins.git#373c5db7da6d06ed4adb563f183707a95860c4de&path:/archive-cleanup" "git+https://github.com/wooly99/dsh-plugins.git#373c5db7da6d06ed4adb563f183707a95860c4de&path:/open-in-app-fix" "git+https://github.com/wooly99/dsh-plugins.git#373c5db7da6d06ed4adb563f183707a95860c4de&path:/kiss-preset" "dsh-codex-subscription@3.2.3" "dsh-notify-me@1.21.6"
+dsh plugin --profile desktop add --ignore-scripts "git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/ui-enhancements" "git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/archive-cleanup" "git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/open-in-app-fix" "git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/kiss-preset" "dsh-codex-subscription@3.2.3" "dsh-notify-me@1.21.6"
 ```
 <!-- plugins:install:end -->
 

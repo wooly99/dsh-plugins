@@ -2,7 +2,7 @@
   "$comment": "Single source of truth for this repo's plugin list. Run `node scripts/plugins.mjs index` after editing; never hand-edit market/index.json or the generated README blocks.",
   "profile": "desktop",
   "repository": "https://github.com/wooly99/dsh-plugins",
-  "commit": "373c5db7da6d06ed4adb563f183707a95860c4de",
+  "commit": "996ce8053f94209fee0a02496603dc627274b682",
   "engines": {
     "dsh": ">=0.2.1-rc.5 <0.3.0"
   },
@@ -52,8 +52,8 @@
         "zh": "界面小增强"
       },
       "summary": {
-        "en": "Workspace labels and status indicators, plus an independent switch for turn code changes.",
-        "zh": "会话工作区顶部栏标记、折叠工作区状态提示、本轮代码差异独立开关。"
+        "en": "One bundle with three independently switchable components: workspace labels, collapsed workspace status, and turn code changes.",
+        "zh": "一个安装包，三个可分别启停的组件：会话工作区标记、折叠工作区状态、本轮代码差异。"
       },
       "engines": {
         "dsh": ">=0.2.2-rc.5 <0.3.0"
