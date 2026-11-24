@@ -1,0 +1,19 @@
+{
+  "name": "@local/dsh-ui-enhancements-turn-diff",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@deepseek-ai/schemastery": "~3.19.0"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": ["index.js", "client.js", "locale/*.json", "icon.svg"],
+  "dsh": {
+    "client": { "platform": "web", "immediately": true }
+  }
+}

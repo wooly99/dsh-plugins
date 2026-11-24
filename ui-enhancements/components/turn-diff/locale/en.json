@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Turn code changes",
+    "description": "Separate the code changes switch under Settings → General. Disabling this component restores the native behavior without clearing your saved preference."
+  }
+}

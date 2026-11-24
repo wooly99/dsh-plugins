@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Collapsed workspace status",
+    "description": "Show running, waiting, or unread completion status for collapsed workspaces."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Session workspace label",
+    "description": "Show the workspace in the session header. Hover to see its full path."
+  }
+}
