@@ -1,6 +1,6 @@
 # DSH 插件（小毛毛熊）
 
-个人使用的 DSH 插件合集：4 个自制插件，以及来自上游 npm 的 Codex 订阅接入和通知提醒。KISS模式及其与官方 Standard 的能力对比见[预设说明](kiss-preset/README.md)。
+个人使用的 DSH 插件合集：4 个自制插件，以及来自上游 npm 的 Codex 订阅接入、通知提醒和 DSHarness Remote。KISS模式及其与官方 Standard 的能力对比见[预设说明](kiss-preset/README.md)。
 
 <!-- plugins:table:start -->
 | 插件 | 功能 | 版本 | 来源 |
@@ -11,6 +11,7 @@
 | [KISS模式](kiss-preset/README.md) | 少约束、少干预，极简提速；保留实用工具与 Skills，让模型自主解决问题。 | 1.0.6 | 本仓库 |
 | [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.3 | npm |
 | [通知提醒](https://github.com/chromoany/dsh-notify-me#readme) | 需要你操作或后台回复完成时，发送系统通知和提示音，支持外部推送。 | 1.21.6 | npm |
+| [DSHarness Remote（远程访问）](https://github.com/liguobao/ds-harness-remote#readme) | 通过端到端加密连接，从 DSH Go、浏览器或另一台电脑访问这台 DeepSeek Harness 主机。 | 0.6.8 | npm |
 <!-- plugins:table:end -->
 
 ## 安装
@@ -41,6 +42,7 @@
 - KISS模式：`git+https://github.com/wooly99/dsh-plugins.git#996ce8053f94209fee0a02496603dc627274b682&path:/kiss-preset`
 - Codex 订阅接入：`dsh-codex-subscription@3.2.3`
 - 通知提醒：`dsh-notify-me@1.21.6`
+- DSHarness Remote（远程访问）：`ds-harness-remote@0.6.8`
 <!-- plugins:specs:end -->
 
 安装后按界面提示启用插件；如果提示需要重启，再重启 DSH。

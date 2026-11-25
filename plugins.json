@@ -12,8 +12,8 @@
       "zh": "小毛毛熊的 DSH 插件"
     },
     "description": {
-      "en": "Personal DSH plugin collection: UI enhancements, archive cleanup, VS Code launch fix, KISS preset, Codex subscription, and notifications.",
-      "zh": "个人 DSH 插件合集：界面小增强、归档清理、VS Code 打开修复、KISS模式、Codex 订阅接入与通知提醒。"
+      "en": "Personal DSH plugin collection: UI enhancements, archive cleanup, VS Code launch fix, KISS preset, Codex subscription, notifications, and remote access.",
+      "zh": "个人 DSH 插件合集：界面小增强、归档清理、VS Code 打开修复、KISS模式、Codex 订阅接入、通知提醒与远程访问。"
     },
     "categories": {
       "ui": {
@@ -38,6 +38,12 @@
         "title": {
           "en": "Models",
           "zh": "模型"
+        }
+      },
+      "remote": {
+        "title": {
+          "en": "Remote access",
+          "zh": "远程访问"
         }
       }
     }
@@ -186,6 +192,31 @@
         "通知",
         "提醒",
         "审批"
+      ]
+    },
+    {
+      "source": "npm",
+      "package": "ds-harness-remote",
+      "tag": "latest",
+      "version": "0.6.8",
+      "publishTimestamp": 1795558249,
+      "author": "liguobao",
+      "homepage": "https://github.com/liguobao/ds-harness-remote#readme",
+      "category": "remote",
+      "title": {
+        "en": "DSHarness Remote",
+        "zh": "DSHarness Remote（远程访问）"
+      },
+      "summary": {
+        "en": "Connect to this DeepSeek Harness host from DSH Go, a browser, or another computer over an end-to-end encrypted connection.",
+        "zh": "通过端到端加密连接，从 DSH Go、浏览器或另一台电脑访问这台 DeepSeek Harness 主机。"
+      },
+      "keywords": [
+        "remote",
+        "DSH Go",
+        "P2P",
+        "远程访问",
+        "手机"
       ]
     }
   ]

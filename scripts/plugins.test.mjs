@@ -62,7 +62,7 @@ const README = [
   'tail'
 ].join('\n');
 
-test('repository catalog includes all six listed plugins', async () => {
+test('repository catalog includes all seven listed plugins', async () => {
   const manifest = await loadManifest();
   assert.deepEqual(manifest.plugins.map(plugin => plugin.name), [
     '@local/dsh-ui-enhancements',
@@ -70,20 +70,23 @@ test('repository catalog includes all six listed plugins', async () => {
     '@local/dsh-open-in-app-fix',
     '@local/dsh-kiss-preset',
     'dsh-codex-subscription',
-    'dsh-notify-me'
+    'dsh-notify-me',
+    'ds-harness-remote'
   ]);
-  assert.deepEqual(Object.keys(manifest.market.categories), ['ui', 'session', 'preset', 'model']);
-  assert.equal(specsOf(manifest, context()).length, 6);
+  assert.deepEqual(Object.keys(manifest.market.categories), ['ui', 'session', 'preset', 'model', 'remote']);
+  assert.equal(specsOf(manifest, context()).length, 7);
   const kiss = manifest.plugins.find(plugin => plugin.name === '@local/dsh-kiss-preset');
   assert.equal(kiss.dir, 'kiss-preset');
   const index = renderIndex(manifest, { commit: manifest.commit, times: {} });
   const kissVersion = index.plugins.find(plugin => plugin.name === kiss.name).versions[0];
   assert.deepEqual(kissVersion.engines, {}, 'KISS does not inherit the catalog DSH range');
-  const notify = manifest.plugins.find(plugin => plugin.name === 'dsh-notify-me');
-  const notifyVersion = index.plugins.find(plugin => plugin.name === notify.name).versions[0];
-  assert.deepEqual(notifyVersion.source, { type: 'npm' });
-  for (const mode of ['local', 'remote']) {
-    assert.equal(specOf(notify, context({ mode })), `dsh-notify-me@${notify.version}`);
+  for (const name of ['dsh-notify-me', 'ds-harness-remote']) {
+    const plugin = manifest.plugins.find(plugin => plugin.name === name);
+    const version = index.plugins.find(plugin => plugin.name === name).versions[0];
+    assert.deepEqual(version.source, { type: 'npm' });
+    for (const mode of ['local', 'remote']) {
+      assert.equal(specOf(plugin, context({ mode })), `${name}@${plugin.version}`);
+    }
   }
 });
 
