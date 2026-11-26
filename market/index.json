@@ -84,7 +84,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "996ce8053f94209fee0a02496603dc627274b682",
+            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
             "path": "ui-enhancements"
           },
           "engines": {
@@ -123,7 +123,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "996ce8053f94209fee0a02496603dc627274b682",
+            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
             "path": "archive-cleanup"
           },
           "engines": {
@@ -161,7 +161,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "996ce8053f94209fee0a02496603dc627274b682",
+            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
             "path": "open-in-app-fix"
           },
           "engines": {
@@ -200,7 +200,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "996ce8053f94209fee0a02496603dc627274b682",
+            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
             "path": "kiss-preset"
           },
           "engines": {}
@@ -304,17 +304,16 @@
       ]
     },
     {
-      "name": "dsh-desktop-autostart-win",
+      "name": "@local/dsh-desktop-autostart",
       "title": {
-        "en": "Windows Desktop Autostart",
+        "en": "Windows launch at login",
         "zh": "Windows 开机自启"
       },
       "description": {
-        "en": "Start the DSH desktop app at Windows 10/11 sign-in. Enable it in Settings → Startup.",
-        "zh": "登录 Windows 10/11 后自动打开 DSH 桌面版；安装后在「设置 → 开机自启」开启。"
+        "en": "Start the DSH desktop app at Windows 10/11 sign-in. Enable it in Settings → General.",
+        "zh": "登录 Windows 10/11 后自动打开 DSH 桌面版；安装后在「设置 → 通用」开启。"
       },
-      "author": "nanwu98",
-      "homepage": "https://github.com/nanwu98/dsh-desktop-autostart-win#readme",
+      "icon": "./icons/desktop-autostart.svg",
       "metadata": {
         "category": "system",
         "keywords": [
@@ -328,14 +327,15 @@
       "versions": [
         {
           "version": "1.0.0",
-          "publishTimestamp": 1793949987,
+          "publishTimestamp": 1795702007,
           "source": {
             "type": "git",
-            "url": "https://github.com/nanwu98/dsh-desktop-autostart-win.git",
-            "commit": "571a90f99c0cc212879a6d7a7a7cdc82b6fcc7d3"
+            "url": "https://github.com/wooly99/dsh-plugins.git",
+            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
+            "path": "desktop-autostart"
           },
           "engines": {
-            "dsh": ">=0.2.2-rc.1 <0.3.0"
+            "dsh": ">=0.2.2-rc.5 <0.3.0"
           }
         }
       ]

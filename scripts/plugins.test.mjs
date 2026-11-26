@@ -72,7 +72,7 @@ test('repository catalog includes all eight listed plugins', async () => {
     'dsh-codex-subscription',
     'dsh-notify-me',
     'ds-harness-remote',
-    'dsh-desktop-autostart-win'
+    '@local/dsh-desktop-autostart'
   ]);
   assert.deepEqual(Object.keys(manifest.market.categories), ['ui', 'session', 'preset', 'model', 'remote', 'system']);
   assert.equal(specsOf(manifest, context()).length, 8);
