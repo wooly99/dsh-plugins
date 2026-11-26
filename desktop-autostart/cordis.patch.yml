@@ -1,0 +1,3 @@
+- insert:
+    - id: local-desktop-autostart
+      name: '@local/dsh-desktop-autostart'
