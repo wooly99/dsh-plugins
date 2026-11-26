@@ -53,7 +53,7 @@ Windows 开机自启仅适用于 Windows 桌面版。安装后到「设置 → �
 
 ## 更新与维护
 
-[plugins.json](plugins.json) 统一管理插件列表、安装地址和市场索引。第三方 npm 插件跟踪上游 `latest`：GitHub Actions 每天查询一次，有变化就创建或更新同一个 PR；合并后市场才会提供新版本。自制插件继续固定在 Git 提交上，不随该任务更新。
+[plugins.json](plugins.json) 统一管理插件列表、安装地址和市场索引。第三方 npm 插件跟踪上游 `latest`：GitHub Actions 每天查询一次，有变化就提 PR 并自动合并，发布到市场。自制插件继续固定在 Git 提交上，不随该任务更新。
 
 本地开发：`node scripts/plugins.mjs install`。默认链接本地源码；`--remote` 安装远程版本，`--dsh <路径>` 指定 DSH CLI。
 
