@@ -62,7 +62,7 @@ const README = [
   'tail'
 ].join('\n');
 
-test('repository catalog includes all seven listed plugins', async () => {
+test('repository catalog includes all eight listed plugins', async () => {
   const manifest = await loadManifest();
   assert.deepEqual(manifest.plugins.map(plugin => plugin.name), [
     '@local/dsh-ui-enhancements',
@@ -71,10 +71,11 @@ test('repository catalog includes all seven listed plugins', async () => {
     '@local/dsh-kiss-preset',
     'dsh-codex-subscription',
     'dsh-notify-me',
-    'ds-harness-remote'
+    'ds-harness-remote',
+    'dsh-desktop-autostart-win'
   ]);
-  assert.deepEqual(Object.keys(manifest.market.categories), ['ui', 'session', 'preset', 'model', 'remote']);
-  assert.equal(specsOf(manifest, context()).length, 7);
+  assert.deepEqual(Object.keys(manifest.market.categories), ['ui', 'session', 'preset', 'model', 'remote', 'system']);
+  assert.equal(specsOf(manifest, context()).length, 8);
   const kiss = manifest.plugins.find(plugin => plugin.name === '@local/dsh-kiss-preset');
   assert.equal(kiss.dir, 'kiss-preset');
   const index = renderIndex(manifest, { commit: manifest.commit, times: {} });
@@ -88,6 +89,37 @@ test('repository catalog includes all seven listed plugins', async () => {
       assert.equal(specOf(plugin, context({ mode })), `${name}@${plugin.version}`);
     }
   }
+});
+
+test('upstream Git entries keep their own pin in all install and market outputs', () => {
+  const value = raw();
+  const upstream = {
+    ...value.plugins[1],
+    source: 'git',
+    package: 'upstream-plugin',
+    repository: 'https://github.com/author/upstream-plugin',
+    commit: 'b'.repeat(40),
+    engines: { dsh: '>=0.2.2-rc.1 <0.3.0' }
+  };
+  value.plugins.push(upstream);
+  const manifest = normalizeManifest(value, readPackage);
+  const plugin = manifest.plugins.at(-1);
+  const url = `${upstream.repository}.git`;
+  const spec = `git+${url}#${upstream.commit}`;
+  for (const mode of ['local', 'remote']) {
+    assert.equal(specOf(plugin, context({ mode })), spec);
+  }
+  const index = renderIndex(manifest, { commit: COMMIT, times: { one: 0 } });
+  assert.deepEqual(index.plugins.at(-1).versions[0], {
+    version: upstream.version,
+    publishTimestamp: upstream.publishTimestamp,
+    source: { type: 'git', url, commit: upstream.commit },
+    engines: upstream.engines
+  });
+  assert.ok(renderTable(manifest).endsWith('| 上游 Git |'));
+  assert.ok(renderSpecs(manifest, context()).includes(`\`${spec}\``));
+  upstream.commit = 'main';
+  assert.throws(() => normalizeManifest(value, readPackage), /commit/);
 });
 
 test('repo entries take their identity from the plugin package.json', () => {

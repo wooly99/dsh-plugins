@@ -12,8 +12,8 @@
       "zh": "小毛毛熊的 DSH 插件"
     },
     "description": {
-      "en": "Personal DSH plugin collection: UI enhancements, archive cleanup, VS Code launch fix, KISS preset, Codex subscription, notifications, and remote access.",
-      "zh": "个人 DSH 插件合集：界面小增强、归档清理、VS Code 打开修复、KISS模式、Codex 订阅接入、通知提醒与远程访问。"
+      "en": "Personal DSH plugin collection: UI enhancements, archive cleanup, VS Code launch fix, KISS preset, Codex subscription, notifications, remote access, and Windows autostart.",
+      "zh": "个人 DSH 插件合集：界面小增强、归档清理、VS Code 打开修复、KISS模式、Codex 订阅接入、通知提醒、远程访问与 Windows 开机自启。"
     },
     "categories": {
       "ui": {
@@ -44,6 +44,12 @@
         "title": {
           "en": "Remote access",
           "zh": "远程访问"
+        }
+      },
+      "system": {
+        "title": {
+          "en": "System",
+          "zh": "系统"
         }
       }
     }
@@ -217,6 +223,35 @@
         "P2P",
         "远程访问",
         "手机"
+      ]
+    },
+    {
+      "source": "git",
+      "package": "dsh-desktop-autostart-win",
+      "repository": "https://github.com/nanwu98/dsh-desktop-autostart-win",
+      "commit": "571a90f99c0cc212879a6d7a7a7cdc82b6fcc7d3",
+      "version": "1.0.0",
+      "publishTimestamp": 1793949987,
+      "author": "nanwu98",
+      "homepage": "https://github.com/nanwu98/dsh-desktop-autostart-win#readme",
+      "category": "system",
+      "engines": {
+        "dsh": ">=0.2.2-rc.1 <0.3.0"
+      },
+      "title": {
+        "en": "Windows Desktop Autostart",
+        "zh": "Windows 开机自启"
+      },
+      "summary": {
+        "en": "Start the DSH desktop app at Windows 10/11 sign-in. Enable it in Settings → Startup.",
+        "zh": "登录 Windows 10/11 后自动打开 DSH 桌面版；安装后在「设置 → 开机自启」开启。"
+      },
+      "keywords": [
+        "windows",
+        "autostart",
+        "startup",
+        "开机",
+        "自启"
       ]
     }
   ]

@@ -1,6 +1,6 @@
 # DSH 插件（小毛毛熊）
 
-个人使用的 DSH 插件合集：4 个自制插件，以及来自上游 npm 的 Codex 订阅接入、通知提醒和 DSHarness Remote。KISS模式及其与官方 Standard 的能力对比见[预设说明](kiss-preset/README.md)。
+个人使用的 DSH 插件合集：4 个自制插件，以及来自上游的 Codex 订阅接入、通知提醒、DSHarness Remote 和 Windows 开机自启。KISS模式及其与官方 Standard 的能力对比见[预设说明](kiss-preset/README.md)。
 
 <!-- plugins:table:start -->
 | 插件 | 功能 | 版本 | 来源 |
@@ -12,6 +12,7 @@
 | [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.3 | npm |
 | [通知提醒](https://github.com/chromoany/dsh-notify-me#readme) | 需要你操作或后台回复完成时，发送系统通知和提示音，支持外部推送。 | 1.21.6 | npm |
 | [DSHarness Remote（远程访问）](https://github.com/liguobao/ds-harness-remote#readme) | 通过端到端加密连接，从 DSH Go、浏览器或另一台电脑访问这台 DeepSeek Harness 主机。 | 0.6.8 | npm |
+| [Windows 开机自启](https://github.com/nanwu98/dsh-desktop-autostart-win#readme) | 登录 Windows 10/11 后自动打开 DSH 桌面版；安装后在「设置 → 开机自启」开启。 | 1.0.0 | 上游 Git |
 <!-- plugins:table:end -->
 
 ## 安装
@@ -43,9 +44,12 @@
 - Codex 订阅接入：`dsh-codex-subscription@3.2.3`
 - 通知提醒：`dsh-notify-me@1.21.6`
 - DSHarness Remote（远程访问）：`ds-harness-remote@0.6.8`
+- Windows 开机自启：`git+https://github.com/nanwu98/dsh-desktop-autostart-win.git#571a90f99c0cc212879a6d7a7a7cdc82b6fcc7d3`
 <!-- plugins:specs:end -->
 
 安装后按界面提示启用插件；如果提示需要重启，再重启 DSH。
+
+Windows 开机自启仅适用于 Windows 桌面版。安装后到「设置 → 开机自启」打开开关；如需卸载并取消自启，请先关闭开关。
 
 ## 更新与维护
 

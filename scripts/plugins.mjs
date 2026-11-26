@@ -26,7 +26,7 @@ const BLOCKS = ['plugins:table', 'plugins:specs'];
 /**
  * Resolve what each entry actually installs. Repo entries take their name and
  * version from the plugin's own package.json, so a plugin's identity lives in
- * exactly one place; npm entries carry the exact version this repo tested with.
+ * exactly one place; npm and upstream Git entries carry a pinned version.
  * @param {object} manifest parsed plugins.json
  * @param {(dir: string) => object} readPackage reads a plugin's package.json
  * @returns {object} the manifest with every plugin resolved
@@ -46,6 +46,13 @@ export function normalizeManifest(manifest, readPackage) {
         const hint = plugin.tag === undefined ? '需要确切 version' : `还没有解析过 ${plugin.tag}，先运行 node scripts/plugins.mjs index --refresh`;
         throw new Error(`${plugin.package}: ${hint}`);
       }
+      if (!Number.isInteger(plugin.publishTimestamp)) throw new Error(`${plugin.package}: 需要 publishTimestamp（秒）`);
+      resolved = { ...plugin, name: plugin.package };
+    } else if (plugin.source === 'git') {
+      if (typeof plugin.package !== 'string' || plugin.package === '') throw new Error('plugins.json: git 条目需要 package');
+      if (typeof plugin.repository !== 'string' || !/^https:\/\/[^\s?#]+$/.test(plugin.repository)) throw new Error(`${plugin.package}: repository 必须是 https Git 地址`);
+      if (typeof plugin.commit !== 'string' || !/^[0-9a-f]{40}$/.test(plugin.commit)) throw new Error(`${plugin.package}: commit 必须是 40 位小写 sha`);
+      if (typeof plugin.version !== 'string' || !/^\d+\.\d+\.\d+(?:-[\w.-]+)?(?:\+[\w.-]+)?$/.test(plugin.version)) throw new Error(`${plugin.package}: 需要确切 version`);
       if (!Number.isInteger(plugin.publishTimestamp)) throw new Error(`${plugin.package}: 需要 publishTimestamp（秒）`);
       resolved = { ...plugin, name: plugin.package };
     } else if (plugin.source === 'repo') {
@@ -81,6 +88,7 @@ export function gitUrl(repository) {
  */
 export function specOf(plugin, { mode, commit, repository, root }) {
   if (plugin.source === 'npm') return `${plugin.name}@${plugin.version}`;
+  if (plugin.source === 'git') return `git+${gitUrl(plugin.repository)}#${plugin.commit}`;
   if (mode === 'local') return `link:${join(root, plugin.dir).split(sep).join('/')}`;
   return `git+${gitUrl(repository)}#${commit}&path:/${plugin.dir}`;
 }
@@ -100,12 +108,15 @@ export function renderIndex(manifest, { commit, times }) {
     metadata: { categories: manifest.market.categories },
     plugins: manifest.plugins.map((plugin) => {
       const engines = plugin.engines ?? (plugin.source === 'repo' ? manifest.engines : undefined);
+      const source = plugin.source === 'repo'
+        ? { type: 'git', url: gitUrl(manifest.repository), commit, path: plugin.dir }
+        : plugin.source === 'git'
+          ? { type: 'git', url: gitUrl(plugin.repository), commit: plugin.commit }
+          : { type: 'npm' };
       const version = {
         version: plugin.version,
         publishTimestamp: plugin.source === 'repo' ? times[plugin.dir] : plugin.publishTimestamp,
-        source: plugin.source === 'repo'
-          ? { type: 'git', url: gitUrl(manifest.repository), commit, path: plugin.dir }
-          : { type: 'npm' }
+        source
       };
       if (engines !== undefined) version.engines = engines;
       const entry = { name: plugin.name, title: plugin.title, description: plugin.summary };
@@ -125,7 +136,7 @@ const summaryOf = (plugin) => plugin.summary.zh ?? plugin.summary.en;
 export function renderTable(manifest) {
   const rows = manifest.plugins.map((plugin) => {
     const target = plugin.source === 'repo' ? `${plugin.dir}/README.md` : plugin.homepage;
-    const origin = plugin.source === 'repo' ? '本仓库' : 'npm';
+    const origin = plugin.source === 'repo' ? '本仓库' : plugin.source === 'git' ? '上游 Git' : 'npm';
     return `| [${labelOf(plugin)}](${target}) | ${summaryOf(plugin)} | ${plugin.version} | ${origin} |`;
   });
   return ['| 插件 | 功能 | 版本 | 来源 |', '|---|---|---|---|', ...rows].join('\n');
