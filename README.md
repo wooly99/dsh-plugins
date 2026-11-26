@@ -9,8 +9,8 @@
 | [归档清理](archive-cleanup/README.md) | 在设置里一键永久删除已归档会话，释放磁盘空间。 | 1.1.1 | 本仓库 |
 | [VS Code 打开修复](open-in-app-fix/README.md) | 修复 Windows DSH 打开 VS Code / Insiders 工作区文件夹的问题。 | 1.0.0 | 本仓库 |
 | [KISS模式](kiss-preset/README.md) | 少约束、少干预，极简提速；保留实用工具与 Skills，让模型自主解决问题。 | 1.0.6 | 本仓库 |
-| [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.3 | npm |
-| [通知提醒](https://github.com/chromoany/dsh-notify-me#readme) | 需要你操作或后台回复完成时，发送系统通知和提示音，支持外部推送。 | 1.21.6 | npm |
+| [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.31 | npm |
+| [通知提醒](https://github.com/chromoany/dsh-notify-me#readme) | 需要你操作或后台回复完成时，发送系统通知和提示音，支持外部推送。 | 1.27.3 | npm |
 | [DSHarness Remote（远程访问）](https://github.com/liguobao/ds-harness-remote#readme) | 通过端到端加密连接，从 DSH Go、浏览器或另一台电脑访问这台 DeepSeek Harness 主机。 | 0.6.8 | npm |
 | [Windows 开机自启](desktop-autostart/README.md) | 登录 Windows 10/11 后自动打开 DSH 桌面版；安装后在「设置 → 通用」开启。 | 1.0.0 | 本仓库 |
 <!-- plugins:table:end -->
@@ -41,8 +41,8 @@
 - 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806&path:/archive-cleanup`
 - VS Code 打开修复：`git+https://github.com/wooly99/dsh-plugins.git#d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806&path:/open-in-app-fix`
 - KISS模式：`git+https://github.com/wooly99/dsh-plugins.git#d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806&path:/kiss-preset`
-- Codex 订阅接入：`dsh-codex-subscription@3.2.3`
-- 通知提醒：`dsh-notify-me@1.21.6`
+- Codex 订阅接入：`dsh-codex-subscription@3.2.31`
+- 通知提醒：`dsh-notify-me@1.27.3`
 - DSHarness Remote（远程访问）：`ds-harness-remote@0.6.8`
 - Windows 开机自启：`git+https://github.com/wooly99/dsh-plugins.git#d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806&path:/desktop-autostart`
 <!-- plugins:specs:end -->
