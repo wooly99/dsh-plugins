@@ -13,7 +13,7 @@ test('status only reads and switches report the resulting Windows state', async 
   const handle = createHandler({ supported: true, readOrSet: async mode => {
     modes.push(mode)
     if (mode !== 'status') enabled = mode === 'on'
-    return enabled
+    return { enabled, adminMode: false, needsRepair: false }
   } })
   for (const [request, expected] of [
     [new Request(url), false], [post('{"enabled":true}'), true],
@@ -21,7 +21,7 @@ test('status only reads and switches report the resulting Windows state', async 
   ]) {
     const response = await handle(request)
     assert.equal(response.status, 200)
-    assert.deepEqual(await response.json(), { supported: true, enabled: expected })
+    assert.deepEqual(await response.json(), { supported: true, enabled: expected, adminMode: false, needsRepair: false })
   }
   assert.deepEqual(modes, ['status', 'on', 'status', 'off'])
 })
@@ -36,6 +36,18 @@ test('unsupported hosts and malformed requests never touch system settings', asy
     assert.equal((await supported(request)).status, 400)
   }
   assert.equal(calls, 0)
+})
+
+test('legacy migration and missing administrator permissions are visible to the client', async () => {
+  const handle = createHandler({ supported: true, readOrSet: async mode => mode === 'status'
+    ? { enabled: false, adminMode: true, needsRepair: true }
+    : { error: 'admin-required' } })
+  assert.deepEqual(await (await handle(new Request(url))).json(), {
+    supported: true, enabled: false, adminMode: true, needsRepair: true,
+  })
+  const response = await handle(post('{"enabled":true}'))
+  assert.equal(response.status, 403)
+  assert.deepEqual(await response.json(), { error: 'admin-required' })
 })
 
 test('system errors are reported without leaking host details', async () => {

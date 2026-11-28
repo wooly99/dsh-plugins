@@ -1,6 +1,6 @@
 {
   "name": "@local/dsh-desktop-autostart",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "private": true,
   "type": "module",
   "description": "Launch the DSH desktop app at Windows sign-in from General settings",
@@ -10,7 +10,7 @@
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg"
   },
-  "files": ["index.js", "client.js", "cordis.patch.yml", "locale/*.json", "icon.svg", "README.md"],
+  "files": ["index.js", "client.js", "windows.ps1", "cordis.patch.yml", "locale/*.json", "icon.svg", "README.md"],
   "engines": { "dsh": ">=0.2.2-rc.5 <0.3.0" },
   "dsh": {
     "bundle": { "patch": "./cordis.patch.yml", "platforms": ["win32"] },

@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Windows launch at login",
-    "description": "Control whether the DeepSeek Harness desktop app opens at Windows sign-in from Settings → General. Off by default."
+    "description": "Open DeepSeek Harness at Windows sign-in, including as administrator. Enabled on first install; turn it off in Settings → General."
   }
 }

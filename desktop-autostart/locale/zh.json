@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Windows 开机自启",
-    "description": "在「设置 → 通用」开启或关闭 DeepSeek Harness 桌面版随 Windows 登录启动。安装后默认关闭。"
+    "description": "首次安装自动开启随 Windows 登录启动，支持管理员模式。可在「设置 → 通用」关闭。"
   }
 }
