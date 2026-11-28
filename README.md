@@ -12,7 +12,7 @@
 | [Codex 订阅接入](https://github.com/WSL043/dsh-codex-subscription) | 使用 ChatGPT / Codex 订阅。 | 3.2.33 | npm |
 | [通知提醒](https://github.com/chromoany/dsh-notify-me#readme) | 需要你操作或后台回复完成时，发送系统通知和提示音，支持外部推送。 | 1.28.2 | npm |
 | [DSHarness Remote（远程访问）](https://github.com/liguobao/ds-harness-remote#readme) | 通过端到端加密连接，从 DSH Go、浏览器或另一台电脑访问这台 DeepSeek Harness 主机。 | 0.6.8 | npm |
-| [Windows 开机自启](desktop-autostart/README.md) | 登录 Windows 10/11 后自动打开 DSH 桌面版；安装后在「设置 → 通用」开启。 | 1.0.0 | 本仓库 |
+| [Windows 开机自启](desktop-autostart/README.md) | 首次安装自动开启随 Windows 10/11 登录启动，支持管理员模式。 | 1.0.2 | 本仓库 |
 <!-- plugins:table:end -->
 
 ## 安装
@@ -37,19 +37,19 @@
 如果无法使用插件市场，打开「插件」→「添加插件」，按需粘贴下面的安装地址：
 
 <!-- plugins:specs:start -->
-- 界面小增强：`git+https://github.com/wooly99/dsh-plugins.git#d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806&path:/ui-enhancements`
-- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806&path:/archive-cleanup`
-- VS Code 打开修复：`git+https://github.com/wooly99/dsh-plugins.git#d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806&path:/open-in-app-fix`
-- KISS模式：`git+https://github.com/wooly99/dsh-plugins.git#d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806&path:/kiss-preset`
+- 界面小增强：`git+https://github.com/wooly99/dsh-plugins.git#a5529b80d13228dffe411cb597abf588b6a5c474&path:/ui-enhancements`
+- 归档清理：`git+https://github.com/wooly99/dsh-plugins.git#a5529b80d13228dffe411cb597abf588b6a5c474&path:/archive-cleanup`
+- VS Code 打开修复：`git+https://github.com/wooly99/dsh-plugins.git#a5529b80d13228dffe411cb597abf588b6a5c474&path:/open-in-app-fix`
+- KISS模式：`git+https://github.com/wooly99/dsh-plugins.git#a5529b80d13228dffe411cb597abf588b6a5c474&path:/kiss-preset`
 - Codex 订阅接入：`dsh-codex-subscription@3.2.33`
 - 通知提醒：`dsh-notify-me@1.28.2`
 - DSHarness Remote（远程访问）：`ds-harness-remote@0.6.8`
-- Windows 开机自启：`git+https://github.com/wooly99/dsh-plugins.git#d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806&path:/desktop-autostart`
+- Windows 开机自启：`git+https://github.com/wooly99/dsh-plugins.git#a5529b80d13228dffe411cb597abf588b6a5c474&path:/desktop-autostart`
 <!-- plugins:specs:end -->
 
 安装后按界面提示启用插件；如果提示需要重启，再重启 DSH。
 
-Windows 开机自启仅适用于 Windows 桌面版。安装后到「设置 → 通用 → 开机自启」打开开关；如需卸载并取消自启，请先关闭开关。
+Windows 开机自启仅适用于 Windows 桌面版，首次安装后自动开启。可在「设置 → 通用 → 开机自启」关闭；如需卸载并取消自启，请先关闭开关。
 
 ## 更新与维护
 

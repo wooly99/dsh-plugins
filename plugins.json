@@ -2,7 +2,7 @@
   "$comment": "Single source of truth for this repo's plugin list. Run `node scripts/plugins.mjs index` after editing; never hand-edit market/index.json or the generated README blocks.",
   "profile": "desktop",
   "repository": "https://github.com/wooly99/dsh-plugins",
-  "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
+  "commit": "a5529b80d13228dffe411cb597abf588b6a5c474",
   "engines": {
     "dsh": ">=0.2.1-rc.5 <0.3.0"
   },
@@ -237,8 +237,8 @@
         "zh": "Windows 开机自启"
       },
       "summary": {
-        "en": "Start the DSH desktop app at Windows 10/11 sign-in. Enable it in Settings → General.",
-        "zh": "登录 Windows 10/11 后自动打开 DSH 桌面版；安装后在「设置 → 通用」开启。"
+        "en": "Start the DSH desktop app at Windows 10/11 sign-in, including as administrator. Enabled on first install.",
+        "zh": "首次安装自动开启随 Windows 10/11 登录启动，支持管理员模式。"
       },
       "keywords": [
         "windows",

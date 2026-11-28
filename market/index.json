@@ -84,7 +84,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
+            "commit": "a5529b80d13228dffe411cb597abf588b6a5c474",
             "path": "ui-enhancements"
           },
           "engines": {
@@ -123,7 +123,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
+            "commit": "a5529b80d13228dffe411cb597abf588b6a5c474",
             "path": "archive-cleanup"
           },
           "engines": {
@@ -161,7 +161,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
+            "commit": "a5529b80d13228dffe411cb597abf588b6a5c474",
             "path": "open-in-app-fix"
           },
           "engines": {
@@ -200,7 +200,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
+            "commit": "a5529b80d13228dffe411cb597abf588b6a5c474",
             "path": "kiss-preset"
           },
           "engines": {}
@@ -310,8 +310,8 @@
         "zh": "Windows 开机自启"
       },
       "description": {
-        "en": "Start the DSH desktop app at Windows 10/11 sign-in. Enable it in Settings → General.",
-        "zh": "登录 Windows 10/11 后自动打开 DSH 桌面版；安装后在「设置 → 通用」开启。"
+        "en": "Start the DSH desktop app at Windows 10/11 sign-in, including as administrator. Enabled on first install.",
+        "zh": "首次安装自动开启随 Windows 10/11 登录启动，支持管理员模式。"
       },
       "icon": "./icons/desktop-autostart.svg",
       "metadata": {
@@ -326,12 +326,12 @@
       },
       "versions": [
         {
-          "version": "1.0.0",
-          "publishTimestamp": 1795702007,
+          "version": "1.0.2",
+          "publishTimestamp": 1795838844,
           "source": {
             "type": "git",
             "url": "https://github.com/wooly99/dsh-plugins.git",
-            "commit": "d6aef1a1cdd9b17b24a2fd1e7f6ee763b0dbd806",
+            "commit": "a5529b80d13228dffe411cb597abf588b6a5c474",
             "path": "desktop-autostart"
           },
           "engines": {
