@@ -154,8 +154,8 @@
       "source": "npm",
       "package": "dsh-codex-subscription",
       "tag": "latest",
-      "version": "3.2.33",
-      "publishTimestamp": 1795717463,
+      "version": "3.2.35",
+      "publishTimestamp": 1795809429,
       "homepage": "https://github.com/WSL043/dsh-codex-subscription",
       "category": "model",
       "title": {
